@@ -1,0 +1,1249 @@
+
+<!doctype html>
+<html lang="zh-TW" class="h-full">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>巫佳真 WU CHIA CHEN - Firmware Engineer Portfolio</title>
+
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <script src="/_sdk/element_sdk.js"></script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --bg-primary: #0a0f1a;
+      --surface-color: #141c2e;
+      --text-color: #e8edf5;
+      --accent-primary: #00d4aa;
+      --accent-secondary: #6366f1;
+    }
+
+    html, body { height: 100%; margin: 0; padding: 0; }
+    *, *::before, *::after { box-sizing: border-box; }
+
+    body {
+      font-family: 'Noto Sans TC', 'Space Grotesk', sans-serif;
+      background: var(--bg-primary);
+      color: var(--text-color);
+    }
+
+    .code-font { font-family: 'JetBrains Mono', monospace; }
+
+    .gradient-text {
+      background: linear-gradient(135deg, var(--accent-primary) 0%, var(--accent-secondary) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .card-glow {
+      position: relative;
+      background: var(--surface-color);
+      border: 1px solid rgba(0, 212, 170, 0.1);
+      transition: all 0.3s ease;
+    }
+
+    .card-glow::before {
+      content: '';
+      position: absolute;
+      inset: -1px;
+      border-radius: inherit;
+      padding: 1px;
+      background: linear-gradient(135deg, transparent 40%, rgba(0, 212, 170, 0.3) 50%, transparent 60%);
+      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .card-glow:hover::before { opacity: 1; }
+
+    .card-glow:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 20px 40px -15px rgba(0, 212, 170, 0.15);
+    }
+
+    .skill-tag {
+      background: linear-gradient(135deg, rgba(0, 212, 170, 0.1) 0%, rgba(99, 102, 241, 0.1) 100%);
+      border: 1px solid rgba(0, 212, 170, 0.2);
+      transition: all 0.2s ease;
+    }
+
+    .skill-tag:hover {
+      background: linear-gradient(135deg, rgba(0, 212, 170, 0.2) 0%, rgba(99, 102, 241, 0.2) 100%);
+      border-color: rgba(0, 212, 170, 0.4);
+    }
+
+    .timeline-line {
+      background: linear-gradient(180deg, var(--accent-primary) 0%, var(--accent-secondary) 100%);
+    }
+
+    .nav-item {
+      position: relative;
+      transition: color 0.2s ease;
+    }
+
+    .nav-item::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--accent-primary);
+      transition: width 0.3s ease;
+    }
+
+    .nav-item:hover::after,
+    .nav-item.active::after { width: 100%; }
+
+    .floating-dots {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      overflow: hidden;
+      z-index: 0;
+    }
+
+    .dot {
+      position: absolute;
+      width: 4px;
+      height: 4px;
+      background: var(--accent-primary);
+      border-radius: 50%;
+      opacity: 0.3;
+      animation: float 20s infinite ease-in-out;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0) translateX(0); }
+      25% { transform: translateY(-20px) translateX(10px); }
+      50% { transform: translateY(-10px) translateX(-10px); }
+      75% { transform: translateY(-30px) translateX(5px); }
+    }
+
+    .section-enter { animation: sectionEnter 0.6s ease forwards; }
+    @keyframes sectionEnter {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .stagger-1 { animation-delay: 0.1s; }
+    .stagger-2 { animation-delay: 0.2s; }
+    .stagger-3 { animation-delay: 0.3s; }
+    .stagger-4 { animation-delay: 0.4s; }
+
+    .hero-circuit {
+      position: absolute;
+      right: 0;
+      top: 0;
+      width: 40%;
+      height: 100%;
+      opacity: 0.1;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'%3E%3Cpath d='M20 100h60m20 0h60M100 20v60m0 20v60' stroke='%2300d4aa' stroke-width='1' fill='none'/%3E%3Ccircle cx='100' cy='100' r='8' fill='none' stroke='%2300d4aa' stroke-width='1'/%3E%3Ccircle cx='20' cy='100' r='4' fill='%2300d4aa'/%3E%3Ccircle cx='180' cy='100' r='4' fill='%2300d4aa'/%3E%3Ccircle cx='100' cy='20' r='4' fill='%2300d4aa'/%3E%3Ccircle cx='100' cy='180' r='4' fill='%2300d4aa'/%3E%3C/svg%3E");
+      background-repeat: repeat;
+      background-size: 100px 100px;
+    }
+
+    .scroll-container {
+      height: 100%;
+      overflow-y: auto;
+      overflow-x: hidden;
+    }
+
+    .award-badge {
+      background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+      color: #0a0f1a;
+    }
+
+    .finalist-badge {
+      background: linear-gradient(135deg, #a855f7 0%, #7c3aed 100%);
+    }
+
+    /* ===== Awards Tech Reveal (HUD style + scan beam) ===== */
+    .reveal-card { position: relative; }
+
+    .tech-reveal {
+      display: grid;
+      gap: 12px;
+      margin-top: 14px;
+    }
+    @media (min-width: 768px) {
+      .tech-reveal { grid-template-columns: 1fr 1fr; }
+    }
+
+    .holo-frame {
+      position: relative;
+      border-radius: 14px;
+      overflow: hidden;
+      background: rgba(20, 28, 46, 0.82);
+      border: 1px solid rgba(0, 212, 170, 0.18);
+      box-shadow: 0 18px 40px -22px rgba(0, 212, 170, 0.35);
+      transform: translateX(42px) scale(0.985);
+      opacity: 0;
+      filter: blur(6px);
+      transition:
+        transform 700ms cubic-bezier(.2,.8,.2,1),
+        opacity 700ms ease,
+        filter 700ms ease,
+        box-shadow 300ms ease;
+    }
+    .holo-frame:nth-child(2) { transition-delay: 120ms; }
+
+    .reveal-card.is-visible .holo-frame {
+      transform: translateX(0) scale(1);
+      opacity: 1;
+      filter: blur(0);
+    }
+
+    .holo-frame:hover {
+      box-shadow: 0 24px 56px -24px rgba(99, 102, 241, 0.45),
+                  0 18px 46px -26px rgba(0, 212, 170, 0.45);
+    }
+
+    .holo-frame::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        repeating-linear-gradient(
+          to bottom,
+          rgba(0, 212, 170, 0.10) 0px,
+          rgba(0, 212, 170, 0.10) 1px,
+          transparent 3px,
+          transparent 7px
+        );
+      opacity: 0.18;
+      mix-blend-mode: screen;
+      pointer-events: none;
+      z-index: 3;
+    }
+
+    .holo-frame::after {
+      content: "";
+      position: absolute;
+      inset: -1px;
+      border-radius: inherit;
+      background: linear-gradient(135deg,
+        rgba(0, 212, 170, 0.55),
+        rgba(99, 102, 241, 0.35),
+        rgba(0, 212, 170, 0.15)
+      );
+      opacity: 0.20;
+      pointer-events: none;
+      z-index: 4;
+    }
+
+    .holo-media {
+      position: relative;
+      aspect-ratio: 16 / 9;
+      width: 100%;
+      overflow: hidden;
+    }
+    .holo-media img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .holo-media .bg-blur {
+      filter: blur(18px);
+      transform: scale(1.12);
+      opacity: 0.35;
+    }
+
+    .holo-caption {
+      position: absolute;
+      left: 10px;
+      bottom: 10px;
+      display: inline-flex;
+      gap: 8px;
+      align-items: center;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: rgba(10, 15, 26, 0.65);
+      border: 1px solid rgba(0, 212, 170, 0.22);
+      color: rgba(232, 237, 245, 0.85);
+      font-size: 12px;
+      backdrop-filter: blur(8px);
+      z-index: 6;
+    }
+    .holo-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: var(--accent-primary);
+      box-shadow: 0 0 10px rgba(0, 212, 170, 0.8);
+    }
+
+    /* Scan beam */
+    .scan-beam {
+      position: absolute;
+      left: -20%;
+      width: 140%;
+      height: 110px;
+      top: -140px;
+      pointer-events: none;
+      z-index: 5;
+      opacity: 0;
+      transform: skewY(-8deg);
+      background: linear-gradient(
+        to bottom,
+        transparent 0%,
+        rgba(0, 212, 170, 0.08) 25%,
+        rgba(0, 212, 170, 0.22) 50%,
+        rgba(99, 102, 241, 0.12) 65%,
+        transparent 100%
+      );
+      filter: blur(0.2px);
+    }
+
+    .reveal-card.is-visible .holo-frame .scan-beam {
+      animation: scanBeam 1200ms cubic-bezier(.2,.8,.2,1) 1;
+    }
+    .reveal-card.is-visible .holo-frame:nth-child(2) .scan-beam {
+      animation-delay: 160ms;
+    }
+
+    @keyframes scanBeam {
+      0%   { top: -140px; opacity: 0; }
+      10%  { opacity: 1; }
+      55%  { opacity: 1; }
+      100% { top: calc(100% + 140px); opacity: 0; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .holo-frame { transition: none; transform: none; opacity: 1; filter: none; }
+      .scan-beam { display: none; }
+    }
+
+    /* ===== Lightbox (Poster click -> fullscreen) ===== */
+    .lightbox {
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 18px;
+      background: rgba(10, 15, 26, 0.82);
+      backdrop-filter: blur(10px);
+    }
+    .lightbox.show { display: flex; }
+
+    .lightbox-panel {
+      position: relative;
+      width: min(1100px, 92vw);
+      max-height: 88vh;
+      border-radius: 16px;
+      overflow: hidden;
+      background: rgba(20, 28, 46, 0.92);
+      border: 1px solid rgba(0, 212, 170, 0.18);
+      box-shadow: 0 28px 70px -28px rgba(0, 212, 170, 0.35);
+    }
+
+    .lightbox-img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      max-height: 88vh;
+      object-fit: contain;
+      background: #0a0f1a;
+    }
+
+    .lightbox-close {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      width: 42px;
+      height: 42px;
+      border-radius: 999px;
+      border: 1px solid rgba(0, 212, 170, 0.25);
+      background: rgba(10, 15, 26, 0.6);
+      color: rgba(232, 237, 245, 0.9);
+      display: grid;
+      place-items: center;
+      cursor: pointer;
+      transition: transform .15s ease, background .2s ease, border-color .2s ease;
+      z-index: 2;
+    }
+
+    .lightbox-close:hover {
+      transform: scale(1.06);
+      background: rgba(0, 212, 170, 0.08);
+      border-color: rgba(0, 212, 170, 0.45);
+    }
+
+    .poster-clickable { cursor: zoom-in; }
+  </style>
+
+  <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
+</head>
+
+<body class="h-full">
+  <!-- Floating Background Dots -->
+  <div class="floating-dots">
+    <div class="dot" style="left: 10%; top: 20%;"></div>
+    <div class="dot" style="left: 85%; top: 15%; animation-delay: -5s;"></div>
+    <div class="dot" style="left: 70%; top: 80%; animation-delay: -10s;"></div>
+    <div class="dot" style="left: 25%; top: 70%; animation-delay: -15s;"></div>
+    <div class="dot" style="left: 50%; top: 40%; animation-delay: -7s;"></div>
+    <div class="dot" style="left: 90%; top: 60%; animation-delay: -12s;"></div>
+  </div>
+
+  <div class="scroll-container relative z-10">
+    <!-- Navigation -->
+    <nav class="sticky top-0 z-50 backdrop-blur-xl bg-[#0a0f1a]/80 border-b border-[#00d4aa]/10">
+      <div class="max-w-6xl mx-auto px-6 py-4">
+        <div class="flex items-center justify-between">
+          <div class="flex items-center gap-3">
+            <div class="relative group">
+              <div class="absolute inset-0 rounded-full bg-gradient-to-br from-[#00d4aa]/30 to-[#6366f1]/30 blur-md
+                          transition-all duration-300 ease-out
+                          group-hover:blur-lg group-hover:opacity-90 group-hover:scale-110"></div>
+
+              <img
+                src="img/IMG20251231110705.jpg"
+                alt="Wei Chun Wen"
+                class="relative w-10 h-10 rounded-full object-cover ring-2 ring-[#00d4aa]/30 shadow-lg
+                       transition-transform duration-300 ease-out
+                       group-hover:scale-110"
+                loading="lazy"
+                onerror="this.style.display='none'"
+              />
+            </div>
+
+            <span class="code-font text-sm text-[#00d4aa]" id="nav-name">Aurora.dev</span>
+          </div>
+
+          <div class="hidden md:flex items-center gap-8">
+            <button class="nav-item text-sm text-[#e8edf5]/70 hover:text-[#e8edf5] active" data-section="about">關於我</button>
+            <button class="nav-item text-sm text-[#e8edf5]/70 hover:text-[#e8edf5]" data-section="skills">技能</button>
+            <button class="nav-item text-sm text-[#e8edf5]/70 hover:text-[#e8edf5]" data-section="experience">經歷</button>
+            <button class="nav-item text-sm text-[#e8edf5]/70 hover:text-[#e8edf5]" data-section="projects">專案</button>
+            <button class="nav-item text-sm text-[#e8edf5]/70 hover:text-[#e8edf5]" data-section="education">學歷</button>
+            <button class="nav-item text-sm text-[#e8edf5]/70 hover:text-[#e8edf5]" data-section="awards">榮譽</button>
+          </div>
+
+          <div class="md:hidden">
+            <button id="mobile-menu-btn" class="text-[#e8edf5] p-2" aria-label="Open menu">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+              </svg>
+            </button>
+          </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden mt-4 pb-4 space-y-2">
+          <button class="block w-full text-left py-2 text-sm text-[#e8edf5]/70 hover:text-[#e8edf5]" data-section="about">關於我</button>
+          <button class="block w-full text-left py-2 text-sm text-[#e8edf5]/70 hover:text-[#e8edf5]" data-section="skills">技能</button>
+          <button class="block w-full text-left py-2 text-sm text-[#e8edf5]/70 hover:text-[#e8edf5]" data-section="experience">經歷</button>
+          <button class="block w-full text-left py-2 text-sm text-[#e8edf5]/70 hover:text-[#e8edf5]" data-section="projects">專案</button>
+          <button class="block w-full text-left py-2 text-sm text-[#e8edf5]/70 hover:text-[#e8edf5]" data-section="education">學歷</button>
+          <button class="block w-full text-left py-2 text-sm text-[#e8edf5]/70 hover:text-[#e8edf5]" data-section="awards">榮譽</button>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header id="about" class="relative min-h-[500px] flex items-center overflow-hidden">
+      <div class="hero-circuit"></div>
+      <div class="max-w-6xl mx-auto px-6 py-16 w-full">
+        <div class="grid md:grid-cols-2 gap-12 items-center">
+          <div class="section-enter">
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#00d4aa]/10 border border-[#00d4aa]/20 mb-6">
+              <span class="w-2 h-2 rounded-full bg-[#00d4aa] animate-pulse"></span>
+              <span class="text-[#00d4aa] text-sm code-font">Available for opportunities</span>
+            </div>
+
+            <h1 class="text-4xl md:text-5xl font-bold mb-2" id="hero-name">
+              <span class="text-[#e8edf5]">文偉君</span>
+              <span class="gradient-text ml-2">Wei Chun Wen</span>
+            </h1>
+
+            <p class="text-xl text-[#00d4aa] code-font mb-4" id="hero-title">Aurora</p>
+            <p class="text-lg text-[#e8edf5]/70 mb-6" id="hero-subtitle">韌體工程師｜BLE・DFU/Bootloader・馬達控制整合・產線測試自動化</p>
+
+            <div class="flex flex-wrap gap-3 mb-8">
+              <span class="flex items-center gap-2 text-sm text-[#e8edf5]/60">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                </svg>
+                台灣
+              </span>
+            </div>
+
+            <div class="flex flex-wrap gap-4">
+              <a href="#projects" class="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-gradient-to-r from-[#00d4aa] to-[#6366f1] text-[#0a0f1a] font-medium transition-transform hover:scale-105">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+                </svg>
+                查看作品
+              </a>
+
+              <a href="#experience" class="inline-flex items-center gap-2 px-6 py-3 rounded-lg border border-[#00d4aa]/30 text-[#e8edf5] hover:bg-[#00d4aa]/10 transition-colors">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                </svg>
+                工作經歷
+              </a>
+            </div>
+          </div>
+
+          <div class="section-enter stagger-2 hidden md:block">
+            <div class="relative">
+              <div class="absolute inset-0 bg-gradient-to-br from-[#00d4aa]/20 to-[#6366f1]/20 rounded-2xl blur-3xl"></div>
+              <div class="relative card-glow rounded-2xl p-6">
+                <div class="code-font text-sm">
+                  <div class="flex items-center gap-2 mb-4">
+                    <span class="w-3 h-3 rounded-full bg-red-500"></span>
+                    <span class="w-3 h-3 rounded-full bg-yellow-500"></span>
+                    <span class="w-3 h-3 rounded-full bg-green-500"></span>
+                    <span class="ml-2 text-[#e8edf5]/50">aurora.c</span>
+                  </div>
+
+<pre class="text-xs leading-relaxed"><code><span class="text-[#6366f1]">#include</span> <span class="text-[#00d4aa]">"nrf52.h"</span>
+<span class="text-[#6366f1]">#include</span> <span class="text-[#00d4aa]">"ble_sdk.h"</span>
+
+<span class="text-[#e8edf5]/50">// Firmware Engineer Profile</span>
+<span class="text-[#6366f1]">typedef struct</span> {
+    <span class="text-[#00d4aa]">char*</span> name;
+    <span class="text-[#00d4aa]">char*</span> expertise[];
+    <span class="text-[#00d4aa]">uint8_t</span> years_exp;
+    <span class="text-[#00d4aa]">bool</span> available;
+} <span class="text-[#e8edf5]">engineer_t</span>;
+
+<span class="text-[#e8edf5]">engineer_t</span> aurora = {
+    .name = <span class="text-[#00d4aa]">"Wei Chun Wen"</span>,
+    .expertise = {
+        <span class="text-[#00d4aa]">"BLE nRF52/54"</span>,
+        <span class="text-[#00d4aa]">"DFU/Bootloader"</span>,
+        <span class="text-[#00d4aa]">"Motor Control"</span>,
+        <span class="text-[#00d4aa]">"Factory Test"</span>
+    },
+    .years_exp = <span class="text-[#f59e0b]">7</span>,
+    .available = <span class="text-[#00d4aa]">true</span>
+};</code></pre>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </header>
+
+    <!-- Summary Section -->
+    <section class="py-16 px-6">
+      <div class="max-w-6xl mx-auto">
+        <div class="card-glow rounded-2xl p-8">
+          <h2 class="text-2xl font-bold mb-6 flex items-center gap-3">
+            <span class="w-10 h-10 rounded-lg bg-gradient-to-br from-[#00d4aa] to-[#6366f1] flex items-center justify-center">
+              <svg class="w-5 h-5 text-[#0a0f1a]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+            </span>
+            專業摘要
+          </h2>
+          <p class="text-[#e8edf5]/80 leading-relaxed text-lg" id="summary-text">
+            具備 <span class="text-[#00d4aa] font-medium">嵌入式韌體 + 系統整合 + 量產導向測試流程</span> 經驗。擅長 Nordic nRF52/nRF54 BLE 韌體開發（Central/Peripheral）、DFU/Bootloader 更新與封裝流程、UART/CAN 與馬達控制板整合，以及 Python 工具化支援產線測試與追溯紀錄。能把需求轉成可落地的流程與文件，亦具備 Demo/PoC、問題定位與跨單位溝通能力。
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="py-16 px-6">
+      <div class="max-w-6xl mx-auto">
+        <h2 class="text-3xl font-bold mb-12 flex items-center gap-3">
+          <span class="gradient-text">核心技能</span>
+          <span class="text-[#e8edf5]/30">Skills</span>
+        </h2>
+
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <!-- Firmware / Embedded -->
+          <div class="card-glow rounded-2xl p-6 section-enter">
+            <div class="flex items-center gap-3 mb-6">
+              <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-[#00d4aa] to-[#00d4aa]/50 flex items-center justify-center">
+                <svg class="w-6 h-6 text-[#0a0f1a]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z" />
+                </svg>
+              </div>
+              <h3 class="text-xl font-bold">Firmware / Embedded</h3>
+            </div>
+            <div class="space-y-3">
+              <div class="skill-tag rounded-lg px-4 py-2">
+                <span class="code-font text-sm text-[#00d4aa]">C/C++</span>
+                <p class="text-xs text-[#e8edf5]/60 mt-1">嵌入式架構設計、狀態機、錯誤處理與低功耗管理</p>
+              </div>
+              <div class="skill-tag rounded-lg px-4 py-2">
+                <span class="code-font text-sm text-[#00d4aa]">Nordic nRF52/nRF54 BLE</span>
+                <p class="text-xs text-[#e8edf5]/60 mt-1">Central/Peripheral、配對/綁定策略、連線穩定性</p>
+              </div>
+              <div class="skill-tag rounded-lg px-4 py-2">
+                <span class="code-font text-sm text-[#00d4aa]">DFU / Secure Bootloader</span>
+                <p class="text-xs text-[#e8edf5]/60 mt-1">nrfutil 封包產生、hex merge、nrfjprog 燒錄</p>
+              </div>
+              <div class="skill-tag rounded-lg px-4 py-2">
+                <span class="code-font text-sm text-[#00d4aa]">介面</span>
+                <p class="text-xs text-[#e8edf5]/60 mt-1">UART / CAN / ADC / GPIO / Timer</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Factory / Automation -->
+          <div class="card-glow rounded-2xl p-6 section-enter stagger-1">
+            <div class="flex items-center gap-3 mb-6">
+              <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-[#f59e0b] to-[#f59e0b]/50 flex items-center justify-center">
+                <svg class="w-6 h-6 text-[#0a0f1a]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
+                </svg>
+              </div>
+              <h3 class="text-xl font-bold">Factory / Automation</h3>
+            </div>
+            <div class="space-y-3">
+              <div class="skill-tag rounded-lg px-4 py-2">
+                <span class="code-font text-sm text-[#f59e0b]">產線治具流程設計</span>
+                <p class="text-xs text-[#e8edf5]/60 mt-1">測項順序、站別狀態、旗標、紀錄匯出</p>
+              </div>
+              <div class="skill-tag rounded-lg px-4 py-2">
+                <span class="code-font text-sm text-[#f59e0b]">Python</span>
+                <p class="text-xs text-[#e8edf5]/60 mt-1">Tkinter GUI、通訊整合、Log/CSV</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- System / Robotics / PoC -->
+          <div class="card-glow rounded-2xl p-6 section-enter stagger-2">
+            <div class="flex items-center gap-3 mb-6">
+              <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-[#6366f1] to-[#6366f1]/50 flex items-center justify-center">
+                <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                </svg>
+              </div>
+              <h3 class="text-xl font-bold">System / Robotics / PoC</h3>
+            </div>
+            <div class="space-y-3">
+              <div class="skill-tag rounded-lg px-4 py-2">
+                <span class="code-font text-sm text-[#6366f1]">Raspberry Pi + Docker</span>
+                <p class="text-xs text-[#e8edf5]/60 mt-1">部署/測試環境</p>
+              </div>
+              <div class="skill-tag rounded-lg px-4 py-2">
+                <span class="code-font text-sm text-[#6366f1]">熱像儀人形辨識</span>
+                <p class="text-xs text-[#e8edf5]/60 mt-1">+ LiDAR 距離調校（多感測整合）</p>
+              </div>
+              <div class="skill-tag rounded-lg px-4 py-2">
+                <span class="code-font text-sm text-[#6366f1]">小車控制</span>
+                <p class="text-xs text-[#e8edf5]/60 mt-1">霍爾馬達 + IMU（陀螺儀）控制與資料應用</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Experience Section -->
+    <section id="experience" class="py-16 px-6">
+      <div class="max-w-6xl mx-auto">
+        <h2 class="text-3xl font-bold mb-12 flex items-center gap-3">
+          <span class="gradient-text">工作經歷</span>
+          <span class="text-[#e8edf5]/30">Experience</span>
+        </h2>
+
+        <div class="relative">
+          <div class="absolute left-0 md:left-8 top-0 bottom-0 w-0.5 timeline-line"></div>
+
+          <!-- Experience Item 1 -->
+          <div class="relative pl-8 md:pl-20 pb-12 section-enter">
+            <div class="absolute left-0 md:left-8 top-0 w-4 h-4 rounded-full bg-[#00d4aa] border-4 border-[#0a0f1a] transform -translate-x-1/2"></div>
+
+            <div class="card-glow rounded-2xl p-6">
+              <div class="flex flex-wrap items-start justify-between gap-4 mb-4">
+                <div>
+                  <h3 class="text-xl font-bold text-[#e8edf5]">久鼎金屬 TranzX / JD Components</h3>
+                  <p class="text-[#00d4aa] font-medium">韌體工程師</p>
+                </div>
+                <span class="px-3 py-1 rounded-full bg-[#00d4aa]/10 text-[#00d4aa] text-sm code-font">2024/09 – 至今</span>
+              </div>
+
+              <p class="text-sm text-[#e8edf5]/60 mb-4">產品/專案：E-Dropper（BLE + 馬達控制 + 量產測試流程）</p>
+
+              <div class="space-y-4">
+                <div>
+                  <h4 class="font-medium text-[#e8edf5] mb-2 flex items-center gap-2">
+                    <span class="w-2 h-2 rounded-full bg-[#00d4aa]"></span>
+                    韌體與系統整合
+                  </h4>
+                  <ul class="space-y-2 text-sm text-[#e8edf5]/70 ml-4">
+                    <li>• 開發/維護 nRF BLE 韌體（Central/Peripheral），處理連線流程、配對/綁定、回連策略與穩定性議題</li>
+                    <li>• 建置 DFU/Bootloader 更新流程：封包產生、hex 合併與燒錄驗證</li>
+                    <li>• 與馬達控制板整合：透過 UART/CAN 進行命令解析、狀態回報、感測資料讀取</li>
+                  </ul>
+                </div>
+                <div>
+                  <h4 class="font-medium text-[#e8edf5] mb-2 flex items-center gap-2">
+                    <span class="w-2 h-2 rounded-full bg-[#f59e0b]"></span>
+                    產線與測試工具化
+                  </h4>
+                  <ul class="space-y-2 text-sm text-[#e8edf5]/70 ml-4">
+                    <li>• 規劃產線治具測試流程：測項設計、站別流程、旗標與追溯欄位</li>
+                    <li>• 使用 Python/Tkinter 開發測試/記錄工具，協助測試流程標準化</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Experience Item 2 -->
+          <div class="relative pl-8 md:pl-20 section-enter stagger-1">
+            <div class="absolute left-0 md:left-8 top-0 w-4 h-4 rounded-full bg-[#6366f1] border-4 border-[#0a0f1a] transform -translate-x-1/2"></div>
+
+            <div class="card-glow rounded-2xl p-6">
+              <div class="flex flex-wrap items-start justify-between gap-4 mb-4">
+                <div>
+                  <h3 class="text-xl font-bold text-[#e8edf5]">光聯科技</h3>
+                  <p class="text-[#6366f1] font-medium">電子工程師</p>
+                </div>
+                <span class="px-3 py-1 rounded-full bg-[#6366f1]/10 text-[#6366f1] text-sm code-font">2018 – 2024/07</span>
+              </div>
+
+              <ul class="space-y-2 text-sm text-[#e8edf5]/70">
+                <li>• 8051 MCU 電控與測試相關開發</li>
+                <li>• LCM 模組「點亮與測試」流程：測試驗證、異常排除與流程穩定化</li>
+                <li>• 協助測試模組/治具導入與標準化，提升可重複測試與品質一致性</li>
+              </ul>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="py-16 px-6">
+      <div class="max-w-6xl mx-auto">
+        <h2 class="text-3xl font-bold mb-12 flex items-center gap-3">
+          <span class="gradient-text">精選專案</span>
+          <span class="text-[#e8edf5]/30">Featured Projects</span>
+        </h2>
+
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <!-- Project 1 -->
+          <div class="card-glow rounded-2xl overflow-hidden section-enter">
+            <div class="relative w-full overflow-hidden" style="aspect-ratio: 16 / 9;">
+              <img src="gif/E_DROP.gif" alt="" class="absolute inset-0 w-full h-full object-cover blur-xl scale-110 opacity-35" aria-hidden="true" />
+              <img src="gif/E_DROP.gif" alt="E-Dropper" class="absolute inset-0 w-full h-full object-contain" decoding="async" />
+              <div class="absolute inset-0 bg-gradient-to-br from-[#00d4aa]/15 to-[#6366f1]/15 pointer-events-none"></div>
+            </div>
+
+            <div class="p-6">
+              <div class="flex items-center gap-2 mb-3">
+                <span class="px-2 py-1 rounded text-xs bg-[#00d4aa]/10 text-[#00d4aa]">BLE</span>
+                <span class="px-2 py-1 rounded text-xs bg-[#6366f1]/10 text-[#6366f1]">UART</span>
+                <span class="px-2 py-1 rounded text-xs bg-[#6366f1]/10 text-[#6366f1]">CANBUS</span>
+                <span class="px-2 py-1 rounded text-xs bg-[#f59e0b]/10 text-[#f59e0b]">Motor</span>
+              </div>
+              <h3 class="text-lg font-bold mb-2">E-Dropper</h3>
+              <p class="text-sm text-[#e8edf5]/60 mb-4">BLE + DFU/Bootloader + 馬達控制板整合</p>
+              <ul class="text-xs text-[#e8edf5]/50 space-y-1">
+                <li>• BLE 連線/綁定與穩定性處理</li>
+                <li>• UART/CAN 命令整合、狀態機、錯誤處理</li>
+                <li>• 產線測項流程與 log/追溯設計</li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Project 2 -->
+          <div class="card-glow rounded-2xl overflow-hidden section-enter stagger-1">
+            <div class="relative w-full overflow-hidden" style="aspect-ratio: 16 / 9;">
+              <img src="gif/yolov8.gif" alt="" class="absolute inset-0 w-full h-full object-cover blur-xl scale-110 opacity-35" aria-hidden="true" />
+              <img src="gif/yolov8.gif" alt="YOLOv8" class="absolute inset-0 w-full h-full object-contain" decoding="async" />
+              <div class="absolute inset-0 bg-gradient-to-br from-[#00d4aa]/15 to-[#6366f1]/15 pointer-events-none"></div>
+            </div>
+
+            <div class="p-6">
+              <div class="flex items-center gap-2 mb-3">
+                <span class="px-2 py-1 rounded text-xs bg-[#6366f1]/10 text-[#6366f1]">Raspberry Pi</span>
+                <span class="px-2 py-1 rounded text-xs bg-[#a855f7]/10 text-[#a855f7]">AI</span>
+              </div>
+              <h3 class="text-lg font-bold mb-2">Raspberry Pi 多感測 PoC：熱像儀人體辨識 + LiDAR 距離調校</h3>
+              <p class="text-sm text-[#e8edf5]/60 mb-4">熱像儀人體辨識 + LiDAR 距離調校</p>
+              <ul class="text-xs text-[#e8edf5]/50 space-y-1">
+                <li>• Raspberry Pi 與多感測應用整合</li>
+                <li>• 熱像儀辨識人形目標 — Yolo v8</li>
+                <li>• LiDAR 距離調校與資料整合</li>
+                <li>• 2025 Best AI Awards 智慧創新大賞｜入選</li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Project 3 -->
+          <div class="card-glow rounded-2xl overflow-hidden section-enter stagger-2">
+            <div class="relative w-full overflow-hidden" style="aspect-ratio: 16 / 9;">
+              <img src="gif/STM32_CAR.gif" alt="" class="absolute inset-0 w-full h-full object-cover blur-xl scale-110 opacity-35" aria-hidden="true" />
+              <img src="gif/STM32_CAR.gif" alt="STM32 Car" class="absolute inset-0 w-full h-full object-contain" decoding="async" />
+              <div class="absolute inset-0 bg-gradient-to-br from-[#00d4aa]/15 to-[#6366f1]/15 pointer-events-none"></div>
+            </div>
+
+            <div class="p-6">
+              <div class="flex items-center gap-2 mb-3">
+                <span class="px-2 py-1 rounded text-xs bg-[#f59e0b]/10 text-[#f59e0b]">Motor</span>
+                <span class="px-2 py-1 rounded text-xs bg-[#00d4aa]/10 text-[#00d4aa]">IMU</span>
+              </div>
+              <h3 class="text-lg font-bold mb-2">小車整合專案</h3>
+              <p class="text-sm text-[#e8edf5]/60 mb-4">STM32 + 光達控制與資料應用</p>
+              <ul class="text-xs text-[#e8edf5]/50 space-y-1">
+                <li>• STM32 嵌入式系統應用</li>
+                <li>• 光達自動避障</li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Project X -->
+          <div class="card-glow rounded-2xl overflow-hidden section-enter stagger-2">
+            <div class="relative w-full overflow-hidden" style="aspect-ratio: 16 / 9;">
+              <img src="gif/DFU_APP.gif" alt="" class="absolute inset-0 w-full h-full object-cover blur-xl scale-110 opacity-35" aria-hidden="true" />
+              <img src="gif/DFU_APP.gif" alt="Mobile DFU + UART Bridge" class="absolute inset-0 w-full h-full object-contain" decoding="async" />
+              <div class="absolute inset-0 bg-gradient-to-br from-[#00d4aa]/15 to-[#6366f1]/15 pointer-events-none"></div>
+            </div>
+
+            <div class="p-6">
+              <div class="flex items-center gap-2 mb-3">
+                <span class="px-2 py-1 rounded text-xs bg-[#00d4aa]/10 text-[#00d4aa]">BLE</span>
+                <span class="px-2 py-1 rounded text-xs bg-[#6366f1]/10 text-[#6366f1]">APP</span>
+                <span class="px-2 py-1 rounded text-xs bg-[#f59e0b]/10 text-[#f59e0b]">UART</span>
+              </div>
+
+              <h3 class="text-lg font-bold mb-2">手機 APP 韌體更新整合</h3>
+              <p class="text-sm text-[#e8edf5]/60 mb-4">APP 對 nRF52 DFU，並透過 UART Bridge 更新 M0A23EC1AC APROM</p>
+
+              <ul class="text-xs text-[#e8edf5]/50 space-y-1">
+                <li>• 手機 APP（Android）BLE 連線與 DFU 流程整合（狀態/進度/錯誤回報）</li>
+                <li>• nRF52 Secure DFU：封包管理、版本控管、更新完成驗證</li>
+                <li>• UART Bridge：nRF52 作為中繼，轉發更新資料給 M0A23EC1AC</li>
+                <li>• M0A23 APROM 更新：進入 ISP/IAP、分段寫入、CRC/校驗、失敗復原策略</li>
+              </ul>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- Education Section -->
+    <section id="education" class="py-16 px-6">
+      <div class="max-w-6xl mx-auto">
+        <h2 class="text-3xl font-bold mb-12 flex items-center gap-3">
+          <span class="gradient-text">學歷</span>
+          <span class="text-[#e8edf5]/30">Education</span>
+        </h2>
+
+        <div class="grid md:grid-cols-2 gap-6">
+          <!-- NCHU -->
+          <div class="card-glow rounded-2xl p-6 section-enter">
+            <div class="flex items-start gap-4">
+              <div class="w-14 h-14 rounded-xl bg-gradient-to-br from-[#00d4aa] to-[#6366f1] flex items-center justify-center flex-shrink-0">
+                <span class="text-[#0a0f1a] font-bold text-lg">興</span>
+              </div>
+              <div class="flex-1">
+                <h3 class="text-lg font-bold text-[#e8edf5]">國立中興大學</h3>
+                <p class="text-[#00d4aa] text-sm">電機工程學系 碩士在職專班 丁組（主修 IC 設計）</p>
+                <p class="text-[#e8edf5]/50 text-sm code-font">112/09 – 114/06</p>
+              </div>
+            </div>
+
+            <div class="mt-4 grid grid-cols-2 gap-4">
+              <div class="bg-[#00d4aa]/5 rounded-lg p-3">
+                <p class="text-[#00d4aa] text-2xl font-bold">3.94</p>
+                <p class="text-[#e8edf5]/50 text-xs">GPA</p>
+              </div>
+              <div class="bg-[#6366f1]/5 rounded-lg p-3">
+                <p class="text-[#6366f1] text-2xl font-bold">3/34</p>
+                <p class="text-[#e8edf5]/50 text-xs">112學年排名</p>
+              </div>
+            </div>
+
+            <div class="mt-4 p-3 bg-[#141c2e] rounded-lg border border-[#00d4aa]/10">
+              <p class="text-xs text-[#e8edf5]/60"><span class="text-[#00d4aa]">論文：</span>《結合 ESRGAN 與 CycleGAN 之牙齒重建模擬與 GUI 視覺化系統設計》</p>
+              <p class="text-xs text-[#f59e0b] mt-1">論文成績 93 分</p>
+              <p class="text-xs text-[#e8edf5]/60 mt-1">AI 應用論文競賽｜碩士組 佳作論文獎</p>
+            </div>
+          </div>
+
+          <!-- FCU -->
+          <div class="card-glow rounded-2xl p-6 section-enter stagger-1">
+            <div class="flex items-start gap-4">
+              <div class="w-14 h-14 rounded-xl bg-gradient-to-br from-[#6366f1] to-[#a855f7] flex items-center justify-center flex-shrink-0">
+                <span class="text-white font-bold text-lg">逢</span>
+              </div>
+              <div class="flex-1">
+                <h3 class="text-lg font-bold text-[#e8edf5]">逢甲大學</h3>
+                <p class="text-[#6366f1] text-sm">電子工程學系（IC Design Program）</p>
+                <p class="text-[#e8edf5]/50 text-sm code-font">101/08 – 105/07</p>
+              </div>
+            </div>
+
+            <div class="mt-4 grid grid-cols-2 gap-4">
+              <div class="bg-[#6366f1]/5 rounded-lg p-3">
+                <p class="text-[#6366f1] text-2xl font-bold">3.1</p>
+                <p class="text-[#e8edf5]/50 text-xs">累計 GPA</p>
+              </div>
+              <div class="bg-[#a855f7]/5 rounded-lg p-3">
+                <p class="text-[#a855f7] text-2xl font-bold">31/115</p>
+                <p class="text-[#e8edf5]/50 text-xs">系排</p>
+              </div>
+            </div>
+
+            <div class="mt-4 p-3 bg-[#141c2e] rounded-lg border border-[#6366f1]/10">
+              <p class="text-xs text-[#e8edf5]/60"><span class="text-[#6366f1]">優秀作品收錄：</span>《即時語音辨識系統》</p>
+              <p class="text-xs text-[#e8edf5]/50 mt-1">逢甲大學優質學生報告資料庫</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- Awards Section -->
+    <section id="awards" class="py-16 px-6">
+      <div class="max-w-6xl mx-auto">
+        <h2 class="text-3xl font-bold mb-12 flex items-center gap-3">
+          <span class="gradient-text">榮譽與獎項</span>
+          <span class="text-[#e8edf5]/30">Awards & Highlights</span>
+        </h2>
+
+        <div class="grid gap-4">
+          <!-- Award 1 -->
+          <div class="card-glow reveal-card rounded-xl p-5 flex items-start gap-4 section-enter">
+            <div class="award-badge px-3 py-1 rounded-full text-xs font-bold flex-shrink-0">🏆 佳作</div>
+
+            <div class="flex-1">
+              <h3 class="font-bold text-[#e8edf5]">台灣管理學會 第十八屆 論文大賞</h3>
+              <p class="text-sm text-[#e8edf5]/60">AI 應用論文競賽｜碩士組 佳作論文獎</p>
+              <p class="text-xs text-[#e8edf5]/40 mt-1">作品：結合 ESRGAN 與 CycleGAN 之牙齒重建模擬與 GUI 視覺化系統設計</p>
+              <p class="text-xs text-[#e8edf5]/30 code-font mt-1">114/08/24</p>
+
+              <div class="tech-reveal">
+                <div class="holo-frame">
+                  <div class="holo-media">
+                    <span class="scan-beam"></span>
+                    <img src="gif/teeth.gif" alt="" class="bg-blur" aria-hidden="true" />
+                    <img src="gif/teeth.gif" alt="GUI Demo - Teeth Reconstruction" loading="lazy" />
+                    <div class="absolute inset-0 bg-gradient-to-br from-[#00d4aa]/12 to-[#6366f1]/14 pointer-events-none z-[2]"></div>
+                    <div class="holo-caption">
+                      <span class="holo-dot"></span>
+                      <span class="code-font">GUI DEMO</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="holo-frame">
+                  <div class="holo-media">
+                    <span class="scan-beam"></span>
+                    <img src="img/MEITU_20250906_205500332.jpg" alt="" class="bg-blur" aria-hidden="true" />
+                    <img src="img/MEITU_20250906_205500332.jpg" alt="Award Photo" loading="lazy" />
+                    <div class="absolute inset-0 bg-gradient-to-br from-[#00d4aa]/10 to-[#6366f1]/12 pointer-events-none z-[2]"></div>
+                    <div class="holo-caption">
+                      <span class="holo-dot"></span>
+                      <span class="code-font">AWARD PHOTO</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- Award 2 -->
+          <div class="card-glow rounded-xl p-5 flex items-start gap-4 section-enter stagger-1">
+            <div class="award-badge px-3 py-1 rounded-full text-xs font-bold flex-shrink-0">🥇 優等</div>
+            <div class="flex-1">
+              <h3 class="font-bold text-[#e8edf5]">致理科技大學「致青春創未來」全國選拔大賽</h3>
+              <p class="text-sm text-[#e8edf5]/60">2024 第七屆｜科技應用組 優等獎</p>
+              <p class="text-xs text-[#e8edf5]/40 mt-1">團隊/作品：AI 青春視界</p>
+              <p class="text-xs text-[#e8edf5]/30 code-font mt-1">113/05/24</p>
+            </div>
+          </div>
+
+          <!-- Award 3 -->
+          <div class="card-glow rounded-xl p-5 flex items-start gap-4 section-enter stagger-2">
+            <div class="bg-gradient-to-r from-[#00d4aa] to-[#6366f1] px-3 py-1 rounded-full text-xs font-bold text-[#0a0f1a] flex-shrink-0">🚀 創業獎</div>
+            <div class="flex-1">
+              <h3 class="font-bold text-[#e8edf5]">2024 興創競技場 創新創業競賽</h3>
+              <p class="text-sm text-[#e8edf5]/60">潛力無限獎（創業獎）</p>
+            </div>
+          </div>
+
+          <!-- Award 4 (AI team / Finalist) ✅ FIXED + Lightbox click for poster -->
+          <div class="card-glow reveal-card rounded-xl p-5 flex items-start gap-4 section-enter stagger-3">
+            <div class="finalist-badge px-3 py-1 rounded-full text-xs font-bold text-white flex-shrink-0">⭐ 入圍決賽</div>
+
+            <div class="flex-1">
+              <h3 class="font-bold text-[#e8edf5]">2025 Best AI Awards 智慧創新大賞</h3>
+              <p class="text-sm text-[#e8edf5]/60">入圍決賽通知（Finalist）</p>
+
+              <div class="tech-reveal">
+                <!-- Poster DEMO (click to fullscreen) -->
+                <div
+                  class="holo-frame poster-clickable"
+                  data-lightbox-src="img/AI_POSTER.jpg"
+                  data-lightbox-alt="POSTER DEMO - Full Image"
+                >
+                  <div class="holo-media">
+                    <span class="scan-beam"></span>
+
+                    <img src="img/AI_POSTER.jpg" alt="" class="bg-blur" aria-hidden="true" />
+                    <img src="img/AI_POSTER.jpg" alt="POSTER DEMO" loading="lazy" />
+
+                    <div class="absolute inset-0 bg-gradient-to-br from-[#00d4aa]/12 to-[#6366f1]/14 pointer-events-none z-[2]"></div>
+
+                    <div class="holo-caption">
+                      <span class="holo-dot"></span>
+                      <span class="code-font">POSTER DEMO</span>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Team Photo (optional click too, I also enabled it) -->
+                <div
+                  class="holo-frame poster-clickable"
+                  data-lightbox-src="img/AI_award_teams.jpg"
+                  data-lightbox-alt="TEAM PHOTO - Full Image"
+                >
+                  <div class="holo-media">
+                    <span class="scan-beam"></span>
+
+                    <img src="img/AI_award_teams.jpg" alt="" class="bg-blur" aria-hidden="true" />
+                    <img src="img/AI_award_teams.jpg" alt="Team Photo" loading="lazy" />
+
+                    <div class="absolute inset-0 bg-gradient-to-br from-[#00d4aa]/10 to-[#6366f1]/12 pointer-events-none z-[2]"></div>
+
+                    <div class="holo-caption">
+                      <span class="holo-dot"></span>
+                      <span class="code-font">TEAM PHOTO</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- Award 5 -->
+          <div class="card-glow rounded-xl p-5 flex items-start gap-4 section-enter stagger-4">
+            <div class="bg-[#6366f1] px-3 py-1 rounded-full text-xs font-bold text-white flex-shrink-0">📚 收錄</div>
+            <div class="flex-1">
+              <h3 class="font-bold text-[#e8edf5]">逢甲大學 優秀作品收錄</h3>
+              <p class="text-sm text-[#e8edf5]/60">《即時語音辨識系統》</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-12 px-6 border-t border-[#00d4aa]/10">
+      <div class="max-w-6xl mx-auto">
+        <div class="flex flex-col md:flex-row items-center justify-between gap-6">
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-lg bg-gradient-to-br from-[#00d4aa] to-[#6366f1] flex items-center justify-center">
+              <span class="text-[#0a0f1a] font-bold text-lg">W</span>
+            </div>
+            <div>
+              <p class="font-bold text-[#e8edf5]">文偉君 Wei Chun Wen</p>
+              <p class="text-sm text-[#e8edf5]/50">Firmware Engineer</p>
+            </div>
+          </div>
+          <div class="flex items-center gap-4">
+            <span class="text-sm text-[#e8edf5]/50">📍 台灣</span>
+            <span class="text-sm text-[#00d4aa] code-font">Available for opportunities</span>
+          </div>
+        </div>
+
+        <div class="mt-8 text-center text-sm text-[#e8edf5]/30">
+          <p>© 2024 Wei Chun Wen. Built with 💚</p>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <!-- Lightbox -->
+  <div id="lightbox" class="lightbox" aria-hidden="true">
+    <div class="lightbox-panel" role="dialog" aria-modal="true" aria-label="Image preview">
+      <button id="lightbox-close" class="lightbox-close" type="button" aria-label="Close">✕</button>
+      <img id="lightbox-img" class="lightbox-img" src="" alt="" />
+    </div>
+  </div>
+
+  <script>
+    // Default configuration
+    const defaultConfig = {
+      name: '文偉君 Wei Chun Wen',
+      title: 'Aurora',
+      summary_text: '具備嵌入式韌體 + 系統整合 + 量產導向測試流程經驗。擅長 Nordic nRF52/nRF54 BLE 韌體開發（Central/Peripheral）、DFU/Bootloader 更新與封裝流程、UART/CAN 與馬達控制板整合，以及 Python 工具化支援產線測試與追溯紀錄。能把需求轉成可落地的流程與文件，亦具備 FAE 常見的 Demo/PoC、問題定位與跨單位溝通能力。',
+      background_color: '#0a0f1a',
+      surface_color: '#141c2e',
+      text_color: '#e8edf5',
+      accent_primary: '#00d4aa',
+      accent_secondary: '#6366f1'
+    };
+
+    // Initialize Element SDK
+    if (window.elementSdk) {
+      window.elementSdk.init({
+        defaultConfig,
+        onConfigChange: async (config) => {
+          const heroName = document.getElementById('hero-name');
+          if (heroName) {
+            const nameParts = (config.name || defaultConfig.name).split(' ');
+            const chineseName = nameParts[0] || '';
+            const englishName = nameParts.slice(1).join(' ') || '';
+            heroName.innerHTML = `<span class="text-[#e8edf5]">${chineseName}</span><span class="gradient-text ml-2">${englishName}</span>`;
+          }
+
+          const heroTitle = document.getElementById('hero-title');
+          if (heroTitle) heroTitle.textContent = config.title || defaultConfig.title;
+
+          const summaryText = document.getElementById('summary-text');
+          if (summaryText) {
+            const summary = config.summary_text || defaultConfig.summary_text;
+            summaryText.innerHTML = summary.replace(
+              /(嵌入式韌體 \+ 系統整合 \+ 量產導向測試流程)/,
+              '<span class="text-[#00d4aa] font-medium">$1</span>'
+            );
+          }
+
+          const bgColor = config.background_color || defaultConfig.background_color;
+          const surfaceColor = config.surface_color || defaultConfig.surface_color;
+          const textColor = config.text_color || defaultConfig.text_color;
+          const accentPrimary = config.accent_primary || defaultConfig.accent_primary;
+          const accentSecondary = config.accent_secondary || defaultConfig.accent_secondary;
+
+          document.documentElement.style.setProperty('--bg-primary', bgColor);
+          document.documentElement.style.setProperty('--surface-color', surfaceColor);
+          document.documentElement.style.setProperty('--text-color', textColor);
+          document.documentElement.style.setProperty('--accent-primary', accentPrimary);
+          document.documentElement.style.setProperty('--accent-secondary', accentSecondary);
+        },
+        mapToCapabilities: (config) => ({
+          recolorables: [
+            { get: () => config.background_color || defaultConfig.background_color, set: (value) => window.elementSdk.setConfig({ background_color: value }) },
+            { get: () => config.surface_color || defaultConfig.surface_color, set: (value) => window.elementSdk.setConfig({ surface_color: value }) },
+            { get: () => config.text_color || defaultConfig.text_color, set: (value) => window.elementSdk.setConfig({ text_color: value }) },
+            { get: () => config.accent_primary || defaultConfig.accent_primary, set: (value) => window.elementSdk.setConfig({ accent_primary: value }) },
+            { get: () => config.accent_secondary || defaultConfig.accent_secondary, set: (value) => window.elementSdk.setConfig({ accent_secondary: value }) }
+          ],
+          borderables: [],
+          fontEditable: undefined,
+          fontSizeable: undefined
+        }),
+        mapToEditPanelValues: (config) => new Map([
+          ['name', config.name || defaultConfig.name],
+          ['title', config.title || defaultConfig.title],
+          ['summary_text', config.summary_text || defaultConfig.summary_text]
+        ])
+      });
+    }
+
+    // Navigation functionality
+    document.querySelectorAll('[data-section]').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        const sectionId = e.currentTarget.dataset.section;
+        const section = document.getElementById(sectionId);
+        if (section) section.scrollIntoView({ behavior: 'smooth' });
+
+        document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active'));
+        document.querySelectorAll(`[data-section="${sectionId}"]`).forEach(item => item.classList.add('active'));
+
+        const mm = document.getElementById('mobile-menu');
+        if (mm) mm.classList.add('hidden');
+      });
+    });
+
+    // Mobile menu toggle
+    const mobileBtn = document.getElementById('mobile-menu-btn');
+    if (mobileBtn) {
+      mobileBtn.addEventListener('click', () => {
+        const mm = document.getElementById('mobile-menu');
+        if (mm) mm.classList.toggle('hidden');
+      });
+    }
+
+    // Intersection Observer: 進視窗 → 加入動畫 + reveal-card 啟動滑出/掃描
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('section-enter');
+          if (entry.target.classList.contains('reveal-card')) {
+            entry.target.classList.add('is-visible');
+          }
+        }
+      });
+    }, { threshold: 0.18 });
+
+    document.querySelectorAll('.card-glow').forEach(card => observer.observe(card));
+
+    // ===== Lightbox logic (Poster click -> fullscreen) =====
+    (function () {
+      const lb = document.getElementById('lightbox');
+      const lbImg = document.getElementById('lightbox-img');
+      const lbClose = document.getElementById('lightbox-close');
+      if (!lb || !lbImg || !lbClose) return;
+
+      function openLightbox(src, alt) {
+        lbImg.src = src;
+        lbImg.alt = alt || 'Preview';
+        lb.classList.add('show');
+        lb.setAttribute('aria-hidden', 'false');
+        document.body.style.overflow = 'hidden';
+      }
+
+      function closeLightbox() {
+        lb.classList.remove('show');
+        lb.setAttribute('aria-hidden', 'true');
+        lbImg.src = '';
+        lbImg.alt = '';
+        document.body.style.overflow = '';
+      }
+
+      document.addEventListener('click', (e) => {
+        const target = e.target.closest('[data-lightbox-src]');
+        if (!target) return;
+
+        const src = target.getAttribute('data-lightbox-src');
+        const alt = target.getAttribute('data-lightbox-alt') || '';
+        if (src) openLightbox(src, alt);
+      });
+
+      lb.addEventListener('click', (e) => {
+        if (e.target === lb) closeLightbox();
+      });
+
+      lbClose.addEventListener('click', closeLightbox);
+
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && lb.classList.contains('show')) closeLightbox();
+      });
+    })();
+  </script>
+</body>
+</html>
