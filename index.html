@@ -690,18 +690,18 @@
                 <span class="px-3 py-1 rounded-full bg-[#00d4aa]/10 text-[#00d4aa] text-sm code-font">2006/08 – 至今</span>
               </div>
 
-              <p class="text-sm text-[#e8edf5]/60 mb-4">產品/專案：CNC 系統與週邊模組開發</p>
+              <p class="text-sm text-[#e8edf5]/60 mb-4">產品/專案：</p>
 
 <div class="space-y-4">
   <!-- 第一個區塊 -->
   <div>
     <h4 class="font-medium text-yellow-400 mb-2 flex items-center gap-2">
       <span class="w-2 h-2 rounded-full bg-[#00d4aa]"></span>
-      EtherCAT Slave 硬韌體架構設計
+      EtherCAT Slave 開發
     </h4>
     <ul class="space-y-2 text-sm text-[#e8edf5]/70 ml-4">
-      <li>• 負責硬體電路設計與韌體開發</li>
-      <li>• 主導 FPGA 與 MCU 之設計，並向下整合馬達控制與 GPIO、PWM、ENC、ADC、DAC 等多元控制介面</li>
+      <li>• 負責硬體電路設計</li>
+      <li>• 負責 FPGA 與 MCU 韌體開發，並整合馬達控制與 GPIO、PWM、ENC、ADC、DAC 等控制介面與 EtherCAT 通訊</li>
     </ul>
   </div>
 
@@ -709,11 +709,23 @@
   <div>
     <h4 class="font-medium text-yellow-400 mb-2 flex items-center gap-2">
       <span class="w-2 h-2 rounded-full bg-[#00d4aa]"></span>
-      馬達 與 週邊控制
+      CNC 系統與週邊模組開發
+    </h4>
+    <ul class="space-y-2 text-sm text-[#e8edf5]/70 ml-4">     
+      <li>• 應用 EPCIO-6988 系列運動控制晶片，進行週邊控制之硬體電路設計</li>
+      <li>• 負責 I/O 控制板之硬體開發與 FPGA/MCU 韌體設計，實現 I/O 控制及 ISA BUS、UART 通訊 </li>
+      <li>• 負責 EDM 放電時序控制，運用 FPGA 進行放電時序邏輯設計 </li>           
+    </ul>
+  </div>
+  
+   <div>
+    <h4 class="font-medium text-yellow-400 mb-2 flex items-center gap-2">
+      <span class="w-2 h-2 rounded-full bg-[#00d4aa]"></span>
+      Power Meter 開發
     </h4>
     <ul class="space-y-2 text-sm text-[#e8edf5]/70 ml-4">
-      <li>• 開發並整合 CNC 週邊 IO 控制板與 Power Meter 模組</li>
-      <li>• 透過 EtherCAT、ISA BUS、UART 與 Modbus 進行資料存取</li>      
+      <li>• 負責硬體電路設計</li>
+      <li>• 負責 MCU 韌體開發，透過 Modbus、UART 及板內 SPI 通訊串接，完成功率量測模組開發</li>      
     </ul>
   </div>
 
