@@ -7,10 +7,10 @@
   <title>巫佳真 WU CHIA CHEN - Firmware and Hardware Engineer Portfolio</title>
 
   <script src="https://cdn.tailwindcss.com/3.4.17"></script>
-  <script src="/_sdk/element_sdk.js"></script>f
+  <script src="/_sdk/element_sdk.js"></script>
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin /> f
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin /> 
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
 
   <style>
@@ -848,26 +848,24 @@
           <!-- Project X -->
           <div class="card-glow rounded-2xl overflow-hidden section-enter stagger-2">
             <div class="relative w-full overflow-hidden" style="aspect-ratio: 16 / 9;">
-              <img src="gif/DFU_APP.gif" alt="" class="absolute inset-0 w-full h-full object-cover blur-xl scale-110 opacity-35" aria-hidden="true" />
-              <img src="gif/DFU_APP.gif" alt="Mobile DFU + UART Bridge" class="absolute inset-0 w-full h-full object-contain" decoding="async" />
+              
+              <img src="ai_car.gif" alt="AI DNN CAR" class="absolute inset-0 w-full h-full object-contain" decoding="async" />
               <div class="absolute inset-0 bg-gradient-to-br from-[#00d4aa]/15 to-[#6366f1]/15 pointer-events-none"></div>
             </div>
 
             <div class="p-6">
               <div class="flex items-center gap-2 mb-3">
-                <span class="px-2 py-1 rounded text-xs bg-[#00d4aa]/10 text-[#00d4aa]">BLE</span>
-                <span class="px-2 py-1 rounded text-xs bg-[#6366f1]/10 text-[#6366f1]">APP</span>
-                <span class="px-2 py-1 rounded text-xs bg-[#f59e0b]/10 text-[#f59e0b]">UART</span>
+                <span class="px-2 py-1 rounded text-xs bg-[#a855f7]/10 text-[#a855f7]">AI</span>
+                <span class="px-2 py-1 rounded text-xs bg-[#6366f1]/10 text-[#6366f1]">DNN</span>
+                <span class="px-2 py-1 rounded text-xs bg-[#f59e0b]/10 text-[#f59e0b]">Highway-env</span>
               </div>
 
-              <h3 class="text-lg font-bold mb-2">手機 APP 韌體更新整合</h3>
-              <p class="text-sm text-[#e8edf5]/60 mb-4">APP 對 nRF52 DFU，並透過 UART Bridge 更新 M0A23EC1AC APROM</p>
+              <h3 class="text-lg font-bold mb-2">AI DNN 之自駕車模擬決策系統</h3>
+              <p class="text-sm text-[#e8edf5]/60 mb-4">MLP 模仿學習自駕決策</p>
 
-              <ul class="text-xs text-[#e8edf5]/50 space-y-1">
-                <li>• 手機 APP（Android）BLE 連線與 DFU 流程整合（狀態/進度/錯誤回報）</li>
-                <li>• nRF52 Secure DFU：封包管理、版本控管、更新完成驗證</li>
-                <li>• UART Bridge：nRF52 作為中繼，轉發更新資料給 M0A23EC1AC</li>
-                <li>• M0A23 APROM 更新：進入 ISP/IAP、分段寫入、CRC/校驗、失敗復原策略</li>
+              <ul class="text-xs text-[#e8edf5]/50 space-y-1">              
+                <li>• 建構 5-Layer MLP 深度神經網路，實現車道變換與動態避障</li>
+                <li>• 於 Highway-env 模擬器完成車流自動巡航與防撞決策驗證</li>
               </ul>
             </div>
           </div>
