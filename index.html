@@ -761,23 +761,22 @@
       </div>
     </section>
 
- <!-- Project 1: ROS 視覺目標追蹤機器人 -->
+<!-- Project 1: ROS 視覺目標追蹤自走車 -->
 <div class="card-glow rounded-2xl overflow-hidden section-enter">
   
-  <!-- 2 個 GIF 雙欄並排展示區 -->
-  <div class="p-3 bg-black/20">
-    <div class="grid grid-cols-2 gap-3 w-full">
-      
-      <!-- GIF 1 (rqt_graph / OpenCV 視覺辨識) -->
-      <div class="relative rounded-lg overflow-hidden bg-black/40" style="aspect-ratio: 16 / 9;">
-        <img src="red1.gif" alt="ROS rqt_graph與視覺追蹤" class="w-full h-full object-cover" />
+  <!-- 影片展示區 (改為單一影片或可搭配 grid) -->
+  <div class="p-4 bg-black/20 flex justify-center">
+    <div class="w-full max-w-xl">
+      <div class="relative rounded-lg overflow-hidden bg-black/40 border border-white/10" style="aspect-ratio: 16 / 9;">
+        <video 
+          src="tr_red1.mp4" 
+          autoplay 
+          loop 
+          muted 
+          playsinline 
+          class="w-full h-full object-cover">
+        </video>
       </div>
-
-      <!-- GIF 2 (實體小車追蹤氣球) -->
-      <div class="relative rounded-lg overflow-hidden bg-black/40" style="aspect-ratio: 16 / 9;">
-        <img src="red2.gif" alt="實體小車追蹤展示" class="w-full h-full object-cover" />
-      </div>
-
     </div>
   </div>
 
@@ -788,12 +787,12 @@
       <span class="px-2 py-1 rounded text-xs bg-[#f59e0b]/10 text-[#f59e0b]">Motor Control</span>
       <span class="px-2 py-1 rounded text-xs bg-[#3b82f6]/10 text-[#3b82f6]">Python</span>
     </div>
-    <h3 class="text-lg font-bold mb-2">ROS 視覺目標追蹤機器人</h3>
-    <p class="text-sm text-[#e8edf5]/60 mb-4">ROS Node 架構 + 顏色識別與馬達控制</p>
+    <h3 class="text-lg font-bold mb-2">ROS 視覺目標追蹤自走車</h3>
+    <p class="text-sm text-[#e8edf5]/60 mb-4">ROS Node 架構 + 顏色識別與閉迴路馬達控制</p>
     <ul class="text-xs text-[#e8edf5]/50 space-y-1">
       <li>• 整合 ROS rqt_graph 建立 Camera, Tracking 與 Motor 控制節點通訊</li>
-      <li>• 應用 OpenCV 實作動態紅球辨識與即時座標追蹤</li>
-      <li>• 完成軟硬體整合與自走車實體追蹤閉迴路控制</li>
+      <li>• 應用 OpenCV 實作紅色氣球動態辨識與即時座標追蹤</li>
+      <li>• 完成軟硬體整合與自走車實體追蹤紅色氣球之閉迴路控制</li>
     </ul>
   </div>
 </div>
