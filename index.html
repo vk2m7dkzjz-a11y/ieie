@@ -19,7 +19,7 @@
       --surface-color: #141c2e;
       --text-color: #e8edf5;
       --accent-primary: #00d4aa;
-      --accent-secondary: #6366f1;
+      --accent-secondary: #6366f1; 
     }
 
     html, body { height: 100%; margin: 0; padding: 0; }
@@ -769,7 +769,7 @@
           <!-- Project 1 -->
           <div class="card-glow rounded-2xl overflow-hidden section-enter">
             <div class="relative w-full overflow-hidden" style="aspect-ratio: 16 / 9;">              
-              <img src="red6.gif" alt="ROS_Car" class="absolute inset-0 w-full h-full object-contain" decoding="async" />
+              <img src="red6.gif" alt="ROS 視覺目標追蹤自走車" class="absolute inset-0 w-full h-full object-contain" decoding="async" />
               <div class="absolute inset-0 bg-gradient-to-br from-[#00d4aa]/15 to-[#6366f1]/15 pointer-events-none"></div>
             </div>
 
@@ -794,26 +794,30 @@
           <!-- Project 2 -->
           <div class="card-glow rounded-2xl overflow-hidden section-enter stagger-1">
             <div class="relative w-full overflow-hidden" style="aspect-ratio: 16 / 9;">
-              <img src="gif/yolov8.gif" alt="" class="absolute inset-0 w-full h-full object-cover blur-xl scale-110 opacity-35" aria-hidden="true" />
-              <img src="gif/yolov8.gif" alt="YOLOv8" class="absolute inset-0 w-full h-full object-contain" decoding="async" />
+             
+              <img src="stm32.gif" alt="STM32 越障小車" class="absolute inset-0 w-full h-full object-contain" decoding="async" />
               <div class="absolute inset-0 bg-gradient-to-br from-[#00d4aa]/15 to-[#6366f1]/15 pointer-events-none"></div>
             </div>
 
             <div class="p-6">
-              <div class="flex items-center gap-2 mb-3">
-                <span class="px-2 py-1 rounded text-xs bg-[#6366f1]/10 text-[#6366f1]">Raspberry Pi</span>
-                <span class="px-2 py-1 rounded text-xs bg-[#a855f7]/10 text-[#a855f7]">AI</span>
-              </div>
-              <h3 class="text-lg font-bold mb-2">Raspberry Pi 多感測 PoC：熱像儀人體辨識 + LiDAR 距離調校</h3>
-              <p class="text-sm text-[#e8edf5]/60 mb-4">熱像儀人體辨識 + LiDAR 距離調校</p>
+              <div class="flex items-center gap-2 mb-3 flex-wrap">
+                <span class="px-2 py-1 rounded text-xs bg-[#00d4aa]/10 text-[#00d4aa]">micro-ROS</span>
+                <span class="px-2 py-1 rounded text-xs bg-[#6366f1]/10 text-[#6366f1]">STM32</span>                
+                <span class="px-2 py-1 rounded text-xs bg-[#f59e0b]/10 text-[#f59e0b]">IMU (JY61P)</span>
+             </div>
+              
+             <!-- 專案標題與簡介 -->
+              <h3 class="text-lg font-bold mb-2">micro-ROS + STM32 嵌入式越障小車</h3>
+              <p class="text-sm text-[#e8edf5]/60 mb-4">結合 FreeRTOS 即時作業系統與 IMU 姿勢反饋控制</p>
+
+              <!-- 技術亮點列表 -->
               <ul class="text-xs text-[#e8edf5]/50 space-y-1">
-                <li>• Raspberry Pi 與多感測應用整合</li>
-                <li>• 熱像儀辨識人形目標 — Yolo v8</li>
-                <li>• LiDAR 距離調校與資料整合</li>
-                <li>• 2025 Best AI Awards 智慧創新大賞｜入選</li>
+                <li>• 運用 micro-ROS 框架連結 STM32 嵌入式核心與 ROS2 通訊網域</li>
+                <li>• 整合 FreeRTOS 多任務排程與 PWM 馬達閉迴路驅動控制</li>
+                <li>• 透過 UART 高效讀取 JY61P (IMU) 九軸角度數據實作即時越障姿態判定</li>
               </ul>
-            </div>
           </div>
+        </div>
 
           <!-- Project 3 -->
           <div class="card-glow rounded-2xl overflow-hidden section-enter stagger-2">
