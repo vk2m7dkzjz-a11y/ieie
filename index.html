@@ -762,39 +762,53 @@
       </div>
     </section>
 
-    <!-- Projects Section -->
-    <section id="projects" class="py-16 px-6">
-      <div class="max-w-6xl mx-auto">
-        <h2 class="text-3xl font-bold mb-12 flex items-center gap-3">
-          <span class="gradient-text">精選專案</span>
-          <span class="text-[#e8edf5]/30">Featured Projects</span>
-        </h2>
+   <!-- Project 1: ROS 視覺目標追蹤機器人 -->
+<div class="card-glow rounded-2xl overflow-hidden section-enter">
+  
+  <!-- 3 個影片並排展示區 -->
+  <div class="p-3 bg-black/20">
+    <div class="grid grid-cols-3 gap-2 w-full">
+      
+      <!-- 影片 1 -->
+      <div class="relative rounded-lg overflow-hidden bg-black/40" style="aspect-ratio: 16 / 9;">
+        <video class="w-full h-full object-contain" autoplay loop muted playsinline>
+          <source src="red1.mp4" type="video/mp4" />
+        </video>
+      </div>
 
-        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-          <!-- Project 1 -->
-          <div class="card-glow rounded-2xl overflow-hidden section-enter">
-            <div class="relative w-full overflow-hidden" style="aspect-ratio: 16 / 9;">
-              <img src="gif/E_DROP.gif" alt="" class="absolute inset-0 w-full h-full object-cover blur-xl scale-110 opacity-35" aria-hidden="true" />
-              <img src="gif/E_DROP.gif" alt="E-Dropper" class="absolute inset-0 w-full h-full object-contain" decoding="async" />
-              <div class="absolute inset-0 bg-gradient-to-br from-[#00d4aa]/15 to-[#6366f1]/15 pointer-events-none"></div>
-            </div>
+      <!-- 影片 2 -->
+      <div class="relative rounded-lg overflow-hidden bg-black/40" style="aspect-ratio: 16 / 9;">
+        <video class="w-full h-full object-contain" autoplay loop muted playsinline>
+          <source src="red2.mp4" type="video/mp4" />
+        </video>
+      </div>
 
-            <div class="p-6">
-              <div class="flex items-center gap-2 mb-3">
-                <span class="px-2 py-1 rounded text-xs bg-[#00d4aa]/10 text-[#00d4aa]">BLE</span>
-                <span class="px-2 py-1 rounded text-xs bg-[#6366f1]/10 text-[#6366f1]">UART</span>
-                <span class="px-2 py-1 rounded text-xs bg-[#6366f1]/10 text-[#6366f1]">CANBUS</span>
-                <span class="px-2 py-1 rounded text-xs bg-[#f59e0b]/10 text-[#f59e0b]">Motor</span>
-              </div>
-              <h3 class="text-lg font-bold mb-2">E-Dropper</h3>
-              <p class="text-sm text-[#e8edf5]/60 mb-4">BLE + DFU/Bootloader + 馬達控制板整合</p>
-              <ul class="text-xs text-[#e8edf5]/50 space-y-1">
-                <li>• BLE 連線/綁定與穩定性處理</li>
-                <li>• UART/CAN 命令整合、狀態機、錯誤處理</li>
-                <li>• 產線測項流程與 log/追溯設計</li>
-              </ul>
-            </div>
-          </div>
+      <!-- 影片 3 -->
+      <div class="relative rounded-lg overflow-hidden bg-black/40" style="aspect-ratio: 16 / 9;">
+        <video class="w-full h-full object-contain" autoplay loop muted playsinline>
+          <source src="red3.mp4" type="video/mp4" />
+        </video>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="p-6">
+    <div class="flex items-center gap-2 mb-3 flex-wrap">
+      <span class="px-2 py-1 rounded text-xs bg-[#00d4aa]/10 text-[#00d4aa]">ROS</span>
+      <span class="px-2 py-1 rounded text-xs bg-[#6366f1]/10 text-[#6366f1]">OpenCV</span>
+      <span class="px-2 py-1 rounded text-xs bg-[#f59e0b]/10 text-[#f59e0b]">Motor Control</span>
+      <span class="px-2 py-1 rounded text-xs bg-[#3b82f6]/10 text-[#3b82f6]">Python</span>
+    </div>
+    <h3 class="text-lg font-bold mb-2">ROS 視覺目標追蹤機器人</h3>
+    <p class="text-sm text-[#e8edf5]/60 mb-4">ROS Node 架構 + 顏色識別與閉迴路馬達控制</p>
+    <ul class="text-xs text-[#e8edf5]/50 space-y-1">
+      <li>• 整合 ROS rqt_graph 建立 Camera, Tracking 與 Motor 控制節點通訊[cite: 3]</li>
+      <li>• 應用 OpenCV 實作動態紅球辨識與即時座標追蹤[cite: 3]</li>
+      <li>• 完成軟硬體整合與自走車實體追蹤閉迴路控制</li>
+    </ul>
+  </div>
+</div>
 
           <!-- Project 2 -->
           <div class="card-glow rounded-2xl overflow-hidden section-enter stagger-1">
