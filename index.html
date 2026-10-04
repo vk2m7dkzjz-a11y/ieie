@@ -422,16 +422,20 @@
             </div>
 
             <span class="code-font text-sm text-[#00d4aa]" id="nav-name">ieie.dev</span>
-          </div>
+          </div>      
 
-          <div class="hidden md:flex items-center gap-8">
-            <button class="nav-item text-sm text-[#e8edf5]/70 hover:text-[#e8edf5] active" data-section="about">關於我</button>
-            <button class="nav-item text-sm text-[#e8edf5]/70 hover:text-[#e8edf5]" data-section="skills">技能</button>
-            <button class="nav-item text-sm text-[#e8edf5]/70 hover:text-[#e8edf5]" data-section="experience">經歷</button>
-            <button class="nav-item text-sm text-[#e8edf5]/70 hover:text-[#e8edf5]" data-section="projects">專案</button>
-            <button class="nav-item text-sm text-[#e8edf5]/70 hover:text-[#e8edf5]" data-section="education">學歷</button>
-            <button class="nav-item text-sm text-[#e8edf5]/70 hover:text-[#e8edf5]" data-section="awards">榮譽</button>
+          <div class="hidden md:flex items-center gap-8 relative" id="nav-container">
+          <button class="nav-item text-sm text-[#e8edf5]/70 hover:text-[#e8edf5] active" data-section="about">關於我</button>
+          <button class="nav-item text-sm text-[#e8edf5]/70 hover:text-[#e8edf5]" data-section="skills">技能</button>
+          <button class="nav-item text-sm text-[#e8edf5]/70 hover:text-[#e8edf5]" data-section="experience">經歷</button>
+          <button class="nav-item text-sm text-[#e8edf5]/70 hover:text-[#e8edf5]" data-section="projects">專案</button>
+          <button class="nav-item text-sm text-[#e8edf5]/70 hover:text-[#e8edf5]" data-section="education">學歷</button>
+          <button class="nav-item text-sm text-[#e8edf5]/70 hover:text-[#e8edf5]" data-section="awards">榮譽</button>
+  
+         <!-- 動態移動的綠色底線 -->
+          <div id="nav-indicator" class="absolute bottom-[-4px] h-[2px] bg-[#00d4aa] transition-all duration-300 ease-in-out"></div>
           </div>
+          
 
           <div class="md:hidden">
             <button id="mobile-menu-btn" class="text-[#e8edf5] p-2" aria-label="Open menu">
