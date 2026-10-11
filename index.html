@@ -1,3 +1,4 @@
+
 <!doctype html>
 <html lang="zh-TW" class="h-full">
 <head>
@@ -150,25 +151,274 @@
       background-size: 100px 100px;
     }
 
-    html {
-      scroll-behavior: smooth;
+    
+html {
+  scroll-behavior: smooth;
+}
+
+.scroll-container {
+  height: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+}
+
+/* 跳轉時保留固定導覽列的空間 */
+#about,
+#skills,
+#experience,
+#projects,
+#education,
+#awards {
+  scroll-margin-top: 85px;
+}
+
+
+    .award-badge {
+      background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+      color: #0a0f1a;
     }
 
-    .scroll-container {
+    .finalist-badge {
+      background: linear-gradient(135deg, #a855f7 0%, #7c3aed 100%);
+    }
+
+    /* ===== Awards Tech Reveal (HUD style + scan beam) ===== */
+    .reveal-card { position: relative; }
+
+    .tech-reveal {
+      display: grid;
+      gap: 12px;
+      margin-top: 14px;
+    }
+    @media (min-width: 768px) {
+      .tech-reveal { grid-template-columns: 1fr 1fr; }
+    }
+
+    .holo-frame {
+      position: relative;
+      border-radius: 14px;
+      overflow: hidden;
+      background: rgba(20, 28, 46, 0.82);
+      border: 1px solid rgba(0, 212, 170, 0.18);
+      box-shadow: 0 18px 40px -22px rgba(0, 212, 170, 0.35);
+      transform: translateX(42px) scale(0.985);
+      opacity: 0;
+      filter: blur(6px);
+      transition:
+        transform 700ms cubic-bezier(.2,.8,.2,1),
+        opacity 700ms ease,
+        filter 700ms ease,
+        box-shadow 300ms ease;
+    }
+    .holo-frame:nth-child(2) { transition-delay: 120ms; }
+
+    .reveal-card.is-visible .holo-frame {
+      transform: translateX(0) scale(1);
+      opacity: 1;
+      filter: blur(0);
+    }
+
+    .holo-frame:hover {
+      box-shadow: 0 24px 56px -24px rgba(99, 102, 241, 0.45),
+                  0 18px 46px -26px rgba(0, 212, 170, 0.45);
+    }
+
+    .holo-frame::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        repeating-linear-gradient(
+          to bottom,
+          rgba(0, 212, 170, 0.10) 0px,
+          rgba(0, 212, 170, 0.10) 1px,
+          transparent 3px,
+          transparent 7px
+        );
+      opacity: 0.18;
+      mix-blend-mode: screen;
+      pointer-events: none;
+      z-index: 3;
+    }
+
+    .holo-frame::after {
+      content: "";
+      position: absolute;
+      inset: -1px;
+      border-radius: inherit;
+      background: linear-gradient(135deg,
+        rgba(0, 212, 170, 0.55),
+        rgba(99, 102, 241, 0.35),
+        rgba(0, 212, 170, 0.15)
+      );
+      opacity: 0.20;
+      pointer-events: none;
+      z-index: 4;
+    }
+
+    .holo-media {
+      position: relative;
+      aspect-ratio: 16 / 9;
+      width: 100%;
+      overflow: hidden;
+    }
+    .holo-media img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
       height: 100%;
-      overflow-y: auto;
-      overflow-x: hidden;
-      scroll-behavior: smooth;
+      object-fit: cover;
     }
 
-    #about,
-    #skills,
-    #experience,
-    #projects,
-    #education,
-    #awards {
-      scroll-margin-top: 85px;
+    .holo-media .bg-blur {
+      filter: blur(18px);
+      transform: scale(1.12);
+      opacity: 0.35;
     }
+
+    .holo-caption {
+      position: absolute;
+      left: 10px;
+      bottom: 10px;
+      display: inline-flex;
+      gap: 8px;
+      align-items: center;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: rgba(10, 15, 26, 0.65);
+      border: 1px solid rgba(0, 212, 170, 0.22);
+      color: rgba(232, 237, 245, 0.85);
+      font-size: 12px;
+      backdrop-filter: blur(8px);
+      z-index: 6;
+    }
+    .holo-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: var(--accent-primary);
+      box-shadow: 0 0 10px rgba(0, 212, 170, 0.8);
+    }
+
+    /* Scan beam */
+    .scan-beam {
+      position: absolute;
+      left: -20%;
+      width: 140%;
+      height: 110px;
+      top: -140px;
+      pointer-events: none;
+      z-index: 5;
+      opacity: 0;
+      transform: skewY(-8deg);
+      background: linear-gradient(
+        to bottom,
+        transparent 0%,
+        rgba(0, 212, 170, 0.08) 25%,
+        rgba(0, 212, 170, 0.22) 50%,
+        rgba(99, 102, 241, 0.12) 65%,
+        transparent 100%
+      );
+      filter: blur(0.2px);
+    }
+
+    .reveal-card.is-visible .holo-frame .scan-beam {
+      animation: scanBeam 1200ms cubic-bezier(.2,.8,.2,1) 1;
+    }
+    .reveal-card.is-visible .holo-frame:nth-child(2) .scan-beam {
+      animation-delay: 160ms;
+    }
+
+    @keyframes scanBeam {
+      0%   { top: -140px; opacity: 0; }
+      10%  { opacity: 1; }
+      55%  { opacity: 1; }
+      100% { top: calc(100% + 140px); opacity: 0; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .holo-frame { transition: none; transform: none; opacity: 1; filter: none; }
+      .scan-beam { display: none; }
+    }
+
+    /* ===== Lightbox (Poster click -> fullscreen) ===== */
+    .lightbox {
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 18px;
+      background: rgba(10, 15, 26, 0.82);
+      backdrop-filter: blur(10px);
+    }
+    .lightbox.show { display: flex; }
+
+    .lightbox-panel {
+      position: relative;
+      width: min(1100px, 92vw);
+      max-height: 88vh;
+      border-radius: 16px;
+      overflow: hidden;
+      background: rgba(20, 28, 46, 0.92);
+      border: 1px solid rgba(0, 212, 170, 0.18);
+      box-shadow: 0 28px 70px -28px rgba(0, 212, 170, 0.35);
+    }
+
+    .lightbox-img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      max-height: 88vh;
+      object-fit: contain;
+      background: #0a0f1a;
+    }
+
+    .lightbox-close {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      width: 42px;
+      height: 42px;
+      border-radius: 999px;
+      border: 1px solid rgba(0, 212, 170, 0.25);
+      background: rgba(10, 15, 26, 0.6);
+      color: rgba(232, 237, 245, 0.9);
+      display: grid;
+      place-items: center;
+      cursor: pointer;
+      transition: transform .15s ease, background .2s ease, border-color .2s ease;
+      z-index: 2;
+    }
+
+    .lightbox-close:hover {
+      transform: scale(1.06);
+      background: rgba(0, 212, 170, 0.08);
+      border-color: rgba(0, 212, 170, 0.45);
+    }
+
+    .poster-clickable { cursor: zoom-in; }
+
+    
+/* 上方導覽列 */
+.nav-item {
+  display: inline-block;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+/* 點擊導覽列後，避免標題被上方選單遮住 */
+#about,
+#skills,
+#experience,
+#projects,
+#education,
+#awards {
+  scroll-margin-top: 85px;
+}
+
   </style>
 
   <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
@@ -186,7 +436,7 @@
   </div>
 
   <div class="scroll-container relative z-10">
-   <!-- Navigation -->
+    <!-- Navigation -->
     <nav class="sticky top-0 z-50 backdrop-blur-xl bg-[#0a0f1a]/80 border-b border-[#00d4aa]/10">
       <div class="max-w-6xl mx-auto px-6 py-4">
         <div class="flex items-center justify-between">
@@ -211,19 +461,24 @@
           </div>      
 
           <div class="hidden md:flex items-center gap-8 relative" id="nav-container">
-            <a href="#about" class="nav-item text-sm text-[#e8edf5]/70 hover:text-[#e8edf5] active">關於我</a>
-            <a href="#skills" class="nav-item text-sm text-[#e8edf5]/70 hover:text-[#e8edf5]">技能</a>
-            <a href="#experience" class="nav-item text-sm text-[#e8edf5]/70 hover:text-[#e8edf5]">經歷</a>
-            <a href="#projects" class="nav-item text-sm text-[#e8edf5]/70 hover:text-[#e8edf5]">專案</a>
-            <a href="#education" class="nav-item text-sm text-[#e8edf5]/70 hover:text-[#e8edf5]">學歷</a>
-            <a href="#awards" class="nav-item text-sm text-[#e8edf5]/70 hover:text-[#e8edf5]">榮譽</a>
+          
+<a href="#about" class="nav-item text-sm text-[#e8edf5]/70 hover:text-[#e8edf5] active">關於我</a>
+<a href="#skills" class="nav-item text-sm text-[#e8edf5]/70 hover:text-[#e8edf5]">技能</a>
+<a href="#experience" class="nav-item text-sm text-[#e8edf5]/70 hover:text-[#e8edf5]">經歷</a>
+<a href="#projects" class="nav-item text-sm text-[#e8edf5]/70 hover:text-[#e8edf5]">專案</a>
+<a href="#education" class="nav-item text-sm text-[#e8edf5]/70 hover:text-[#e8edf5]">學歷</a>
+<a href="#awards" class="nav-item text-sm text-[#e8edf5]/70 hover:text-[#e8edf5]">榮譽</a>
 
-            <!-- 動態移動的綠色底線 -->
-            <div id="nav-indicator" class="absolute bottom-[-4px] h-[2px] bg-[#00d4aa] transition-all duration-300 ease-in-out"></div>
+  
+         <!-- 動態移動的綠色底線 -->
+          <div id="nav-indicator" class="absolute bottom-[-4px] h-[2px] bg-[#00d4aa] transition-all duration-300 ease-in-out"></div>
           </div>    
+          
 
+
+  
           <div class="md:hidden">
-            <button id="mobile-menu-btn" class="relative z-50 text-[#e8edf5] p-2" aria-label="Open menu">
+            <button id="mobile-menu-btn" class="text-[#e8edf5] p-2" aria-label="Open menu">
               <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
               </svg>
@@ -231,7 +486,8 @@
           </div>
         </div>
 
-        <!-- Mobile Menu (手機選單內容與連結) -->
+        <!-- Mobile Menu -->
+        <!-- Mobile Menu -->
         <div id="mobile-menu" class="hidden md:hidden mt-4 pb-4 space-y-2">
           <a href="#about" class="mobile-link block w-full text-left py-2 text-sm text-[#e8edf5]/70 hover:text-[#e8edf5]">關於我</a>
           <a href="#skills" class="mobile-link block w-full text-left py-2 text-sm text-[#e8edf5]/70 hover:text-[#e8edf5]">技能</a>
@@ -260,17 +516,78 @@
             </h1>
 
             <p class="text-xl text-[#00d4aa] code-font mb-4" id="hero-title">ieie</p>
-            <p class="text-lg text-[#e8edf5]/70 mb-6" id="hero-subtitle">系統工程師 ｜ 硬體電路設計 ｜ FPGA 與 MCU 晶片設計 ｜ CNC 系統與馬達控制 ｜ micro-ROS 與 ROS ｜ 深度學習 與 OpenCV 影像處理</p>
-            
+           <p class="text-lg text-[#e8edf5]/70 mb-6" id="hero-subtitle">系統工程師 ｜ 硬體電路設計 ｜ FPGA 與 MCU 晶片設計 ｜ CNC 系統與馬達控制 ｜ micro-ROS 與 ROS ｜ 深度學習 與 OpenCV 影像處理</p>
+            <div class="flex flex-wrap gap-3 mb-8">
+              <span class="flex items-center gap-2 text-sm text-[#e8edf5]/60">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                </svg>
+                台灣
+              </span>
+            </div>
+
             <div class="flex flex-wrap gap-4">
               <a href="#projects" class="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-gradient-to-r from-[#00d4aa] to-[#6366f1] text-[#0a0f1a] font-medium transition-transform hover:scale-105">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+                </svg>
                 查看作品
               </a>
+
               <a href="#experience" class="inline-flex items-center gap-2 px-6 py-3 rounded-lg border border-[#00d4aa]/30 text-[#e8edf5] hover:bg-[#00d4aa]/10 transition-colors">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                </svg>
                 工作經歷
               </a>
             </div>
           </div>
+
+          <div class="section-enter stagger-2 hidden md:block">
+            <div class="relative">
+              <div class="absolute inset-0 bg-gradient-to-br from-[#00d4aa]/20 to-[#6366f1]/20 rounded-2xl blur-3xl"></div>
+              <div class="relative card-glow rounded-2xl p-6">
+                <div class="code-font text-sm">
+                  <div class="flex items-center gap-2 mb-4">
+                    <span class="w-3 h-3 rounded-full bg-red-500"></span>
+                    <span class="w-3 h-3 rounded-full bg-yellow-500"></span>
+                    <span class="w-3 h-3 rounded-full bg-green-500"></span>
+                    <span class="ml-2 text-[#e8edf5]/50">ieie.c</span>
+                  </div>
+
+<pre class="text-xs leading-relaxed"><code><span class="text-[#6366f1]">#include</span> <span class="text-[#00d4aa]">"opencv.h"</span>
+<span class="text-[#6366f1]">#include</span> <span class="text-[#00d4aa]">"ros.h"</span>
+
+<span class="text-[#e8edf5]/50">// Firmware and Hardware Engineer Profile</span>
+<span class="text-[#6366f1]">typedef struct</span> {
+    <span class="text-[#00d4aa]">char*</span> name;
+    <span class="text-[#00d4aa]">char*</span> expertise[];
+    <span class="text-[#00d4aa]">uint8_t</span> years_exp;
+    <span class="text-[#00d4aa]">bool</span> available;
+} <span class="text-[#e8edf5]">engineer_t</span>;
+
+<span class="text-[#e8edf5]">engineer_t</span> ieie = {
+    .name = <span class="text-[#00d4aa]">"WU CHIA CHEN"</span>,
+    .expertise = {
+        <span class="text-[#00d4aa]">"CNC HW & FW Design"</span>,
+        <span class="text-[#00d4aa]">"Motor Control & Integration"</span>,
+        <span class="text-[#00d4aa]">"Factory Test Automation"</span>,
+        <span class="text-[#00d4aa]">"micro-ROS & ROS"</span>,
+        <span class="text-[#00d4aa]">"Deep Learning & OpenCV"</span>
+    },
+    .years_exp = <span class="text-[#f59e0b]">20</span>,
+    .available = <span class="text-[#00d4aa]">true</span>
+};</code></pre>
+                </div>
+              </div>
+            </div>
+          </div>
+
         </div>
       </div>
     </header>
@@ -279,79 +596,832 @@
     <section class="py-16 px-6">
       <div class="max-w-6xl mx-auto">
         <div class="card-glow rounded-2xl p-8">
-          <h2 class="text-2xl font-bold mb-6">專業摘要</h2>
-          <p class="text-[#e8edf5]/80 leading-relaxed text-lg">
-            具備 <span class="text-[#00d4aa] font-medium">硬體設計 + 嵌入式韌體 + 系統整合 + 量產導向測試流程</span> 經驗。
+          <h2 class="text-2xl font-bold mb-6 flex items-center gap-3">
+            <span class="w-10 h-10 rounded-lg bg-gradient-to-br from-[#00d4aa] to-[#6366f1] flex items-center justify-center">
+              <svg class="w-5 h-5 text-[#0a0f1a]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+           </span>
+            專業摘要
+          </h2>
+          <p class="text-[#e8edf5]/80 leading-relaxed text-lg" id="summary-text">
+            具備 <span class="text-[#00d4aa] font-medium">硬體設計 + 嵌入式韌體 + 系統整合 + 量產導向測試流程</span> 經驗。擅長以 FPGA 與 MCU 程式碼實現馬達控制與工業通訊介面整合 ， 以及 micro-ROS / ROS 自走車系統、OpenCV 影像處理與 AI 深度學習（DNN/DRQN） 之實作經驗。具備將技術落地實踐之能力。
           </p>
-        </div>
       </div>
     </section>
 
     <!-- Skills Section -->
     <section id="skills" class="py-16 px-6">
       <div class="max-w-6xl mx-auto">
-        <h2 class="text-3xl font-bold mb-12"><span class="gradient-text">核心技能</span></h2>
+        <h2 class="text-3xl font-bold mb-12 flex items-center gap-3">
+          <span class="gradient-text">核心技能</span>
+          <span class="text-[#e8edf5]/30">Skills</span>
+        </h2>
+
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <!-- Firmware / Embedded -->
+          <div class="card-glow rounded-2xl p-6 section-enter">
+            <div class="flex items-center gap-3 mb-6">
+              <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-[#00d4aa] to-[#00d4aa]/50 flex items-center justify-center">
+                <svg class="w-6 h-6 text-[#0a0f1a]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z" />
+                </svg>
+              </div>
+              <h3 class="text-xl font-bold">Firmware / Embedded</h3>
+            </div>
+            <div class="space-y-3">              
+              <div class="skill-tag rounded-lg px-4 py-2">
+                <span class="code-font text-base text-[#00d4aa]">ITRI 軸控晶片  | FPGA | MCU</span>
+                <p class="text-sm text-[#e8edf5]/60 mt-1">• ITRI : EPCIO-6988  系列運動控制晶片</p>
+                <p class="text-sm text-[#e8edf5]/60 mt-1">• Xilinx : Spartan6 / Spartan7</p>
+                <p class="text-sm text-[#e8edf5]/60 mt-1">• TI : MSP430 系列</p>
+                <p class="text-sm text-[#e8edf5]/60 mt-1">• Renesas : RX 系列</p>                     
+              </div>  
+
+              <div class="skill-tag rounded-lg px-4 py-2"> 
+                <span class="code-font text-base text-[#00d4aa]">C / C++ | Verilog | Python</span>
+                <p class="text-sm text-[#e8edf5]/60 mt-1">嵌入式韌體開發、FPGA 數位邏輯設計、OpenCV 影像處理、ROS 與 AI 演算法實作</p>
+              </div>
+              
+              <div class="skill-tag rounded-lg px-4 py-2">
+                <span class="code-font text-base text-[#00d4aa]">介面</span>                
+                <p class="text-sm text-[#e8edf5]/60 mt-1">• EtherCAT  、  Modbus   、  PC104  、  ISA </p>                                                  
+                <p class="text-sm text-[#e8edf5]/60 mt-1">• UART  、   SPI  、  I2C    </p>
+                <p class="text-sm text-[#e8edf5]/60 mt-1">• ADC/DAC  、  GPIO  、  PWM  、  Encoder  </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Factory / Automation -->
+          <div class="card-glow rounded-2xl p-6 section-enter stagger-1">
+            <div class="flex items-center gap-3 mb-6">
+              <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-[#f59e0b] to-[#f59e0b]/50 flex items-center justify-center">
+                <svg class="w-6 h-6 text-[#0a0f1a]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
+                </svg>
+              </div>
+              <h3 class="text-xl font-bold">Factory / Automation</h3>
+            </div>
+            <div class="space-y-3">
+              <div class="skill-tag rounded-lg px-4 py-2">
+                <span class="code-font text-base text-[#f59e0b]">產線自動化測試與治具設計</span>
+                <p class="text-sm text-[#e8edf5]/60 mt-1">測試板硬體電路與流程規劃、I/O 迴路自檢、通訊封包驗證</p>
+              </div>
+              <div class="skill-tag rounded-lg px-4 py-2">
+                <span class="code-font text-base text-[#f59e0b]">生產線檢測介面開發</span>
+                <p class="text-sm text-[#e8edf5]/60 mt-1">GUI 軟體、 即時狀態判定與異常紅字警示</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- System / Robotics / PoC -->
+          <div class="card-glow rounded-2xl p-6 section-enter stagger-2">
+            <div class="flex items-center gap-3 mb-6">
+              <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-[#6366f1] to-[#6366f1]/50 flex items-center justify-center">
+                <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                </svg>
+              </div>
+              <h3 class="text-xl font-bold">AI  / Robotics / System  </h3>
+            </div>
+            <div class="space-y-3">
+              <div class="skill-tag rounded-lg px-4 py-2">
+                <span class="code-font text-base text-[#6366f1]">自走車</span>
+                <p class="text-sm text-[#e8edf5]/60 mt-1">• ROS2 +  STM32 + IMU(陀螺儀)避障</p>
+                <p class="text-sm text-[#e8edf5]/60 mt-1">• ROS  +  Raspberry Pi  +  Arduino視覺跟隨</p>
+                <p class="text-sm text-[#e8edf5]/60 mt-1">• Arduino 自動循跡與即時避障小車</p>
+              </div>
+              <div class="skill-tag rounded-lg px-4 py-2">
+                <span class="code-font text-base text-[#6366f1]">AI 駕駛決策與行為預測</span>
+                <p class="text-sm text-[#e8edf5]/60 mt-1">• DRQN 強化學習：圓環環境自駕決策訓練</p>
+                <p class="text-sm text-[#e8edf5]/60 mt-1">• DNN 深度學習：高速公路行為預測模型</p>
+              </div>
+              <div class="skill-tag rounded-lg px-4 py-2">
+                <span class="code-font text-base text-[#6366f1]">夜視鏡</span>
+                <p class="text-sm text-[#e8edf5]/60 mt-1">OpenCV + Jetson nano + FLIR Lepton紅外熱像儀 + RGB相機 實現夜視鏡功能</p>
+              </div>
+              
+            </div>
+          </div>
+        </div>
       </div>
     </section>
 
     <!-- Experience Section -->
     <section id="experience" class="py-16 px-6">
       <div class="max-w-6xl mx-auto">
-        <h2 class="text-3xl font-bold mb-12"><span class="gradient-text">工作經歷</span></h2>
+        <h2 class="text-3xl font-bold mb-12 flex items-center gap-3">
+          <span class="gradient-text">工作經歷</span>
+          <span class="text-[#e8edf5]/30">Experience</span>
+        </h2>
+
+        <div class="relative">
+          <div class="absolute left-0 md:left-8 top-0 bottom-0 w-0.5 timeline-line"></div>
+
+          <!-- Experience Item 1 -->
+          <div class="relative pl-8 md:pl-20 pb-12 section-enter">
+            <div class="absolute left-0 md:left-8 top-0 w-4 h-4 rounded-full bg-[#00d4aa] border-4 border-[#0a0f1a] transform -translate-x-1/2"></div>
+
+            <div class="card-glow rounded-2xl p-6">
+              <div class="flex flex-wrap items-start justify-between gap-4 mb-4">
+                <div>
+                  <h3 class="text-xl font-bold text-[#e8edf5]">舜鵬科技股份有限公司 GENTEC</h3>
+                  <p class="text-[#00d4aa] font-medium">系統工程師</p>
+                </div>
+                <span class="px-3 py-1 rounded-full bg-[#00d4aa]/10 text-[#00d4aa] text-sm code-font">2006/08 – 至今</span> 
+              </div>
+
+              <p class="text-sm text-[#e8edf5]/60 mb-4">產品/專案：</p>
+
+<div class="space-y-4">
+  <!-- 第二個區塊（與第一個區塊對齊） -->
+  <div>
+    <h4 class="font-medium text-yellow-400 mb-2 flex items-center gap-2">
+      <span class="w-2 h-2 rounded-full bg-[#00d4aa]"></span>
+      CNC 系統與週邊模組開發
+    </h4>
+    <ul class="space-y-2 text-sm text-[#e8edf5]/70 ml-4">     
+      <li>• 應用 EPCIO-6988 系列運動控制晶片，進行週邊控制之硬體電路設計</li>
+      <li>• 負責 I/O 控制板、UART擴充板、USB擴充板之硬體開發與部分模組 PCB Layout，並協同外包廠商完成複雜板卡之佈線對接與驗證。</li>
+      <li>• 負責 FPGA / MCU 韌體設計，實現 I/O 控制及 ISA BUS、UART 、 PC104 通訊 </li>
+      <li>• 負責 EDM 放電時序控制，運用 FPGA 進行放電時序邏輯設計 </li>           
+    </ul>
+  </div>
+  
+  <!-- 第一個區塊 -->
+  <div>
+    <h4 class="font-medium text-yellow-400 mb-2 flex items-center gap-2">
+      <span class="w-2 h-2 rounded-full bg-[#00d4aa]"></span>
+      EtherCAT Slave 開發
+    </h4>
+    <ul class="space-y-2 text-sm text-[#e8edf5]/70 ml-4">
+      <li>• 負責硬體電路設計，並與外包 Layout 廠商進行規格對接、走線規範確認與 PCB 驗證</li>
+      <li>• 負責 FPGA 與 MCU 韌體開發，並整合馬達控制與 GPIO、PWM、ENC、ADC、DAC 等控制介面與 EtherCAT 通訊</li>
+    </ul>
+  </div>  
+  
+   <div>
+    <h4 class="font-medium text-yellow-400 mb-2 flex items-center gap-2">
+      <span class="w-2 h-2 rounded-full bg-[#00d4aa]"></span>
+      Power Meter 開發
+    </h4>
+    <ul class="space-y-2 text-sm text-[#e8edf5]/70 ml-4">
+      <li>• 負責硬體電路設計與 PCB Layout 佈線，獨立完成功率量測模組開發</li>
+      <li>• 負責 MCU 韌體開發，透過 Modbus、UART 及板內 SPI 通訊串接，完成功率量測模組開發</li>      
+    </ul>
+  </div>
+
+  <!-- 第三個區塊（與第一個區塊對齊） -->
+  <div>
+    <h4 class="font-medium text-yellow-400 mb-2 flex items-center gap-2">
+      <span class="w-2 h-2 rounded-full bg-[#00d4aa]"></span>
+      機電整合與驗證
+    </h4>
+    <ul class="space-y-2 text-sm text-[#e8edf5]/70 ml-4">
+      <li>• 系統機電整合與雜訊分析，強化整體電路抗干擾能力與運作穩定度，實現產品落地</li>     
+    </ul>
+  </div>
+
+<div>
+    <h4 class="font-medium text-yellow-400 mb-2 flex items-center gap-2">
+      <span class="w-2 h-2 rounded-full bg-[#00d4aa]"></span>
+      產線與測試工具化
+    </h4>
+    <ul class="space-y-2 text-sm text-[#e8edf5]/70 ml-4">
+      <li>• 協助開發測試模組/治具導入與標準化，與 PCB Layout 佈線，提升可重複測試與品質一致性</li> 
+      <li>• 撰寫產品開發後之自動化測試程式</li>
+       </ul>
+            </div>
+          </div>
+
+        </div>
       </div>
     </section>
 
-    <!-- Projects Section -->
+<!-- Projects Section -->
     <section id="projects" class="py-16 px-6">
       <div class="max-w-6xl mx-auto">
-        <h2 class="text-3xl font-bold mb-12"><span class="gradient-text">精選專案</span></h2>
+        <h2 class="text-3xl font-bold mb-12 flex items-center gap-3">
+          <span class="gradient-text">精選專案</span>
+          <span class="text-[#e8edf5]/30">Featured Projects</span>
+        </h2>
+
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <!-- Project 1 -->
+          <div class="card-glow rounded-2xl overflow-hidden section-enter">
+            <div class="relative w-full overflow-hidden" style="aspect-ratio: 16 / 9;">              
+              
+              <!-- 主影片展示區 (使用 <video> 標籤取代 <img>) -->
+    <video 
+      src="vido/red5.mp4" 
+      autoplay 
+      loop 
+      muted 
+      playsinline 
+      preload="auto"
+      class="relative z-10 w-full h-full object-contain"
+    ></video>
+
+              <div class="absolute inset-0 bg-gradient-to-br from-[#00d4aa]/15 to-[#6366f1]/15 pointer-events-none"></div>
+            </div>
+
+             <div class="p-6">
+              <div class="flex items-center gap-2 mb-3 flex-wrap">
+              <span class="px-2 py-1 rounded text-sm bg-[#00d4aa]/10 text-[#00d4aa]">ROS</span>
+                <span class="px-2 py-1 rounded text-sm bg-[#6366f1]/10 text-[#6366f1]">Raspberry Pi</span> 
+                <span class="px-2 py-1 rounded text-xs bg-[#00d4aa]/10 text-[#6366f1]">Arduino</span>
+              <span class="px-2 py-1 rounded text-sm bg-[#f59e0b]/10 text-[#f59e0b]">Motor</span>         
+            </div>
+        <h3 class="text-lg font-bold mb-2">ROS 視覺目標追蹤自走車</h3>
+        <p class="text-sm text-[#e8edf5]/60 mb-4">ROS Node 架構 + 顏色識別與閉迴路馬達控制</p>
+        <ul class="text-xs text-[#e8edf5]/50 space-y-1">
+        <li>• 整合 ROS 建立 Camera, Tracking 與 Motor 控制節點通訊</li>
+      <li>• 應用 OpenCV 實作紅色氣球動態辨識與即時座標追蹤</li>
+      <li>• 完成軟硬體整合與自走車實體追蹤紅色氣球之控制</li>
+    </ul>
+  </div>
+</div>
+
+          
+          <!-- Project 2 -->
+          <div class="card-glow rounded-2xl overflow-hidden section-enter stagger-1">
+            <div class="relative w-full overflow-hidden" style="aspect-ratio: 16 / 9;">
+             
+              <!-- 主影片展示區 (使用 <video> 標籤取代 <img>) -->
+    <video 
+      src="vido/stm32.mp4" 
+      autoplay 
+      loop 
+      muted 
+      playsinline 
+      preload="auto"
+      class="relative z-10 w-full h-full object-contain"
+    ></video>
+
+              <div class="absolute inset-0 bg-gradient-to-br from-[#00d4aa]/15 to-[#6366f1]/15 pointer-events-none"></div>
+            </div>
+
+            <div class="p-6">
+              <div class="flex items-center gap-2 mb-3 flex-wrap">
+                <span class="px-2 py-1 rounded text-xs bg-[#00d4aa]/10 text-[#00d4aa]">micro-ROS</span>
+                <span class="px-2 py-1 rounded text-xs bg-[#6366f1]/10 text-[#6366f1]">STM32</span>                
+                <span class="px-2 py-1 rounded text-xs bg-[#f59e0b]/10 text-[#a855f7]">IMU</span>
+                <span class="px-2 py-1 rounded text-sm bg-[#f59e0b]/10 text-[#f59e0b]">Motor</span>   
+             </div>
+              
+             <!-- 專案標題與簡介 -->
+              <h3 class="text-lg font-bold mb-2">micro-ROS + STM32 嵌入式越障小車</h3>
+              <p class="text-sm text-[#e8edf5]/60 mb-4">STM32 + JY61P 控制</p>
+
+              <!-- 技術亮點列表 -->
+              <ul class="text-xs text-[#e8edf5]/50 space-y-1">
+                <li>• 運用 micro-ROS 連結 STM32 嵌入式核心與 ROS2 通訊</li>
+                <li>• 整合 FreeRTOS 排程與 PWM 馬達閉迴路驅動控制</li>
+                <li>• 透過 UART 讀取 IMU 回授，即時調整 PWM 馬達輸出</li>              
+              </ul>
+          </div>
+        </div>
+
+          <!-- Project 3 -->
+          <div class="card-glow rounded-2xl overflow-hidden section-enter stagger-2">
+            <div class="relative w-full overflow-hidden" style="aspect-ratio: 16 / 9;">             
+              
+              <!-- 主影片展示區 (使用 <video> 標籤取代 <img>) -->
+    <video 
+      src="vido/e_car.mp4" 
+      autoplay 
+      loop 
+      muted 
+      playsinline 
+      preload="auto"
+      class="relative z-10 w-full h-full object-contain"
+    ></video>
+
+
+              
+              <div class="absolute inset-0 bg-gradient-to-br from-[#00d4aa]/15 to-[#6366f1]/15 pointer-events-none"></div>
+            </div>
+
+            <div class="p-6">
+              <div class="flex items-center gap-2 mb-3">
+                 <span class="px-2 py-1 rounded text-xs bg-[#00d4aa]/10 text-[#6366f1]">Arduino</span>
+                  <span class="px-2 py-1 rounded text-xs bg-[#6366f1]/10 text-[#a855f7]">IR Tracking</span>
+                  <span class="px-2 py-1 rounded text-xs bg-[#a855f7]/10 text-[#a855f7]">HC-SR04</span>
+                  <span class="px-2 py-1 rounded text-sm bg-[#f59e0b]/10 text-[#f59e0b]">Motor</span>                 
+              </div>
+              <h3 class="text-lg font-bold mb-2">紅外線循跡避障自走車</h3>
+              <p class="text-sm text-[#e8edf5]/60 mb-4">紅外線黑線循跡 + 超音波即時避障</p>
+              <ul class="text-xs text-[#e8edf5]/50 space-y-1">
+                <li>• 紅外線感測器路徑循跡，並整合 HC-SR04 超音波模組</li>
+                <li>• 動態 RGB-LED 狀態指示燈</li>
+                <li>• 搭配蜂鳴器進行音樂播放</li>
+                <li>• 整合 I2C LCD 介面顯示 DHT11 溫濕度數據</li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Project X -->
+          <div class="card-glow rounded-2xl overflow-hidden section-enter stagger-2">
+            <div class="relative w-full overflow-hidden" style="aspect-ratio: 16 / 9;">
+              
+           
+ <!-- 主影片展示區 (使用 <video> 標籤取代 <img>) -->
+    <video 
+      src="vido/ai_car.mp4" 
+      autoplay 
+      loop 
+      muted 
+      playsinline 
+      preload="auto"
+      class="relative z-10 w-full h-full object-contain"
+    ></video>
+              
+              <div class="absolute inset-0 bg-gradient-to-br from-[#00d4aa]/15 to-[#6366f1]/15 pointer-events-none"></div>
+            </div>
+
+            <div class="p-6">
+              <div class="flex items-center gap-2 mb-3">
+                <span class="px-2 py-1 rounded text-xs bg-[#a855f7]/10 text-[#a855f7]">AI</span>
+                <span class="px-2 py-1 rounded text-xs bg-[#6366f1]/10 text-[#00d4aa]">DNN</span>
+                <span class="px-2 py-1 rounded text-xs bg-[#f59e0b]/10 text-[#f59e0b]">Highway-env</span>
+              </div>
+
+              <h3 class="text-lg font-bold mb-2">DNN 自駕車模擬決策系統</h3>
+              <p class="text-sm text-[#e8edf5]/60 mb-4">MLP 模仿學習自駕決策</p>
+
+              <ul class="text-xs text-[#e8edf5]/50 space-y-1">              
+                <li>• 建構 5-Layer MLP 深度神經網路，實現車道變換與動態避障</li>
+                <li>• 於 Highway-env 模擬器完成車流自動巡航與防撞決策驗證</li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Project: DRQN 圓環與動態車流自駕決策系統 -->
+          <div class="card-glow rounded-2xl overflow-hidden section-enter stagger-5">
+          <!-- 媒體展示區 (16:9 比例與高效能 CSS 顏色光暈) -->
+            <div class="relative w-full overflow-hidden" style="aspect-ratio: 16 / 9;">
+            <!-- 背後科技感發光光暈 -->
+            <div class="absolute inset-0 bg-gradient-to-r from-[#00d4aa]/30 to-[#6366f1]/30 blur-2xl scale-110 opacity-60" aria-hidden="true"></div>
+    
+           
+<!-- 主影片展示區 (使用 <video> 標籤取代 <img>) -->
+    <video 
+      src="vido/ai_car_cu.mp4" 
+      autoplay 
+      loop 
+      muted 
+      playsinline 
+      preload="auto"
+      class="relative z-10 w-full h-full object-contain"
+    ></video>
+              
+    <!-- 漸層遮罩 -->
+    <div class="absolute inset-0 z-20 bg-gradient-to-br from-[#00d4aa]/15 to-[#6366f1]/15 pointer-events-none"></div>
+  </div>
+
+  <div class="p-6">
+    <!-- 技術標籤區 -->
+    <div class="flex items-center gap-2 mb-3 flex-wrap">
+      <span class="px-2 py-1 rounded text-xs bg-[#a855f7]/10 text-[#a855f7]">AI</span>
+      <span class="px-2 py-1 rounded text-xs bg-[#00d4aa]/10 text-[#00d4aa]">DRQN</span>
+      <span class="px-2 py-1 rounded text-xs bg-[#6366f1]/10 text-[#6366f1]">Deep RL</span>
+      <span class="px-2 py-1 rounded text-xs bg-[#a855f7]/10 text-[#a855f7]">LSTM</span>
+      <span class="px-2 py-1 rounded text-xs bg-[#f59e0b]/10 text-[#f59e0b]">Highway-env</span>
+    </div>
+
+    <!-- 專案標題與副標題 -->
+    <h3 class="text-lg font-bold mb-2">DRQN 自駕車模擬圓環決策系統</h3>
+    <p class="text-sm text-[#e8edf5]/60 mb-4">DRQN 時序強化學習自駕決策</p>
+
+    <!-- 技術亮點列表 -->
+    <ul class="text-xs text-[#e8edf5]/50 space-y-1">
+      <li>• 結合 DQN 與 LSTM 循環神經網路，具備歷史記憶與動態時序決策能力</li>
+      <li>• 於圓環及密集車流中，克服部分可觀測環境實作即時穿梭與避障</li>
+      <li>• 於 Highway-env 模擬器完成連續動態狀態訓練</li>
+    </ul>
+  </div>
+</div>
+
+           <!-- Project: 基於 CUDA 加速之 OpenCV GPU 夜視影像融合系統 -->
+
+<div class="card-glow rounded-2xl overflow-hidden section-enter stagger-5">
+
+  <!-- 媒體展示區 (16:9 比例與高效能 CSS 顏色光暈) -->
+
+  <div class="relative w-full overflow-hidden" style="aspect-ratio: 16 / 9;">
+
+    <!-- 背後科技感發光光暈 -->
+
+    <div class="absolute inset-0 bg-gradient-to-r from-[#10b981]/30 to-[#3b82f6]/30 blur-2xl scale-110 opacity-60" aria-hidden="true"></div>    
+
+    <!-- 主影片展示區 (使用 <video> 標籤取代 <img>) -->
+    <video 
+      src="vido/night.mp4" 
+      autoplay 
+      loop 
+      muted 
+      playsinline 
+      class="relative z-10 w-full h-full object-contain"
+    ></video>
+
+    <!-- 漸層遮罩 -->
+
+    <div class="absolute inset-0 z-20 bg-gradient-to-br from-[#10b981]/15 to-[#3b82f6]/15 pointer-events-none"></div>
+
+  </div>
+
+
+
+  <div class="p-6">
+
+    <!-- 技術標籤區 -->
+
+    <div class="flex items-center gap-2 mb-3 flex-wrap">
+
+      <span class="px-2 py-1 rounded text-xs bg-[#10b981]/10 text-[#10b981]">Jetson Nano</span>
+
+      <span class="px-2 py-1 rounded text-xs bg-[#3b82f6]/10 text-[#3b82f6]">FLIR Lepton</span>     
+
+      <span class="px-2 py-1 rounded text-xs bg-[#f59e0b]/10 text-[#f59e0b]">CUDA/GPU</span>
+
+    </div>
+
+
+
+    <!-- 專案標題與副標題 -->
+
+    <h3 class="text-lg font-bold mb-2">基於CUDA加速運算之OpenCV GPU模組實現夜視功能</h3>
+
+    <p class="text-sm text-[#e8edf5]/60 mb-4">應用於夜視之熱成像與可見光即時影像融合</p>
+
+
+
+    <!-- 技術亮點列表 -->
+
+    <ul class="text-xs text-[#e8edf5]/50 space-y-1">
+
+      <li>• 結合可見光鏡頭與 FLIR Lepton 熱像儀，克服無光、低光照與極端天候干擾</li>
+
+      <li>• 運用 OpenCV 進行降噪、對比度增強與輪廓擷取，優化夜間影像特徵</li>
+
+      <li>• 結合 CUDA GPU 平行加速，於 Jetson Nano 達到 Real-time 處理效能</li>
+
+    </ul>
+
+  </div>
+
+</div> 
+
+
+          
+        </div>
       </div>
     </section>
 
-    <!-- Education Section -->
+          <!-- Education Section -->
     <section id="education" class="py-16 px-6">
       <div class="max-w-6xl mx-auto">
-        <h2 class="text-3xl font-bold mb-12"><span class="gradient-text">學歷</span></h2>
+        <h2 class="text-3xl font-bold mb-12 flex items-center gap-3">
+          <span class="gradient-text">學歷</span>
+          <span class="text-[#e8edf5]/30">Education</span>
+        </h2>
+
+        <div class="grid md:grid-cols-2 gap-6">
+          <!-- NCHU -->
+          <div class="card-glow rounded-2xl p-6 section-enter">
+            <div class="flex items-start gap-4">
+              <div class="w-14 h-14 rounded-xl bg-gradient-to-br from-[#00d4aa] to-[#6366f1] flex items-center justify-center flex-shrink-0">
+                <span class="text-[#0a0f1a] font-bold text-lg">興</span>
+              </div>
+              <div class="flex-1">
+                <h3 class="text-lg font-bold text-[#e8edf5]">國立中興大學</h3> 
+                <p class="text-[#00d4aa] text-base">電機工程學系碩士 甲組（主修 嵌入式系統與電腦視覺）</p>
+                <p class="text-[#e8edf5]/50 text-sm code-font">113 年畢業</p>
+              </div>
+            </div>
+           
+            <div class="mt-4 p-3 bg-[#141c2e] rounded-lg border border-[#00d4aa]/10">
+              <p class="text-base text-[#e8edf5]/60"><span class="text-[#00d4aa]">論文：</span>以基於CUDA加速運算之OpenCV GPU模組實現夜視功能</p>             
+            </div>
+          </div>
+
+           <!-- FCU -->
+          <div class="card-glow rounded-2xl p-6 section-enter stagger-1">
+            <div class="flex items-start gap-4">
+              <div class="w-14 h-14 rounded-xl bg-gradient-to-br from-[#6366f1] to-[#a855f7] flex items-center justify-center flex-shrink-0">
+                <span class="text-white font-bold text-lg">彰</span>
+              </div>
+              <div class="flex-1">
+                <h3 class="text-lg font-bold text-[#e8edf5]">國立彰化師大</h3>
+                <p class="text-[#6366f1] text-base">工業教育學系 </p>
+                <p class="text-[#e8edf5]/50 text-sm code-font">93 年畢業 </p>
+              </div>
+            </div>            
+        </div>
       </div>
     </section>
+  
 
     <!-- Awards Section -->
     <section id="awards" class="py-16 px-6">
       <div class="max-w-6xl mx-auto">
-        <h2 class="text-3xl font-bold mb-12"><span class="gradient-text">榮譽</span></h2>
+        <h2 class="text-3xl font-bold mb-12 flex items-center gap-3">
+          <span class="gradient-text">榮譽與獎項</span>
+          <span class="text-[#e8edf5]/30">Awards & Highlights</span>
+        </h2>
+
+        <div class="grid gap-4">
+          <!-- Award 1 -->
+          <div class="card-glow reveal-card rounded-xl p-5 flex items-start gap-4 section-enter">
+            <div class="award-badge px-3 py-1 rounded-full text-xs font-bold flex-shrink-0">🏆 優秀員工</div>
+
+            <div class="flex-1">
+              <h3 class="font-bold text-[#e8edf5] mb-4">慶鴻關係企業 114 年度優秀員工 — 創新改善獎</h3>              
+
+              <p class="text-base text-[#e8edf5]/60"><span class="text-[#00d4aa]">創 新：</span>開發 EtherCAT Slave 控制模組、周邊 I/O 板與馬達控制，完成機電整合並導入生產 SOP 商品化</p>
+              <p class="text-base text-[#e8edf5]/60 mb-8"><span class="text-[#00d4aa]">改 善：</span> 分析現有機台雜訊問題，設計抗干擾元件、優化電路與機台走線，提升機台運作穩定度</p>   
+           
+              
+              
+               <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <!-- Project 1 -->
+          <div class="card-glow rounded-2xl overflow-hidden section-enter">
+            <div class="relative w-full overflow-hidden" style="aspect-ratio: 16 / 9;">              
+              <img src="gentec.jpg" alt="ROS_Car" class="absolute inset-0 w-full h-full object-contain" decoding="async" />
+              <div class="absolute inset-0 bg-gradient-to-br from-[#00d4aa]/15 to-[#6366f1]/15 pointer-events-none"></div>
+            </div>
+                      
+
+            </div>
+          </div>
+
+         
+
+        </div>
       </div>
     </section>
+
+    <!-- Footer -->
+    <footer class="py-12 px-6 border-t border-[#00d4aa]/10">
+      <div class="max-w-6xl mx-auto">
+        <div class="flex flex-col md:flex-row items-center justify-between gap-6">
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-lg bg-gradient-to-br from-[#00d4aa] to-[#6366f1] flex items-center justify-center">
+              <span class="text-[#0a0f1a] font-bold text-lg">W</span>
+            </div>
+            <div>
+              <p class="font-bold text-[#e8edf5]">巫佳真 WU CHIA CHEN</p>
+              <p class="text-sm text-[#e8edf5]/50">System Engineer</p>
+            </div>
+          </div>
+          <div class="flex items-center gap-4">
+            <span class="text-sm text-[#e8edf5]/50">📍 台灣</span>
+            <span class="text-sm text-[#00d4aa] code-font">Available for opportunities</span>
+          </div>
+        </div>
+
+        <div class="mt-8 text-center text-sm text-[#e8edf5]/30">
+          <p>© 2026 WU CHIA CHEN. Built with 💚</p>
+        </div>
+      </div>
+    </footer>
   </div>
 
-  <!-- JavaScript 互動邏輯 -->
+  <!-- Lightbox -->
+  <div id="lightbox" class="lightbox" aria-hidden="true">
+    <div class="lightbox-panel" role="dialog" aria-modal="true" aria-label="Image preview">
+      <button id="lightbox-close" class="lightbox-close" type="button" aria-label="Close">✕</button>
+      <img id="lightbox-img" class="lightbox-img" src="" alt="" />
+    </div>
+  </div>
+
   <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      const mobileBtn = document.getElementById('mobile-menu-btn');
-      const mobileMenu = document.getElementById('mobile-menu');
+    // Default configuration
+    const defaultConfig = {
+      name: '巫佳真 WU CHIA CHEN',
+      
+    summary_text: '• 嵌入式韌體：FPGA 與 MCU 晶片設計、CNC 系統硬體與韌體開發。\n' +
+                  '• 系統整合：馬達控制、機電整合與 EMC/EMI 雜訊處理實務。\n' +
+                  '• 量產導向測試流程：產線測試自動化與系統穩定度優化。\n' +
+                  '•專案協作與除錯：能把需求轉成可落地的流程與文件，具備問題定位與跨單位溝通能力。\n',+
+                  '• 前瞻技術與演算法：具備 micro-ROS 與 ROS、深度學習及 OpenCV 影像處理之實作經驗。',
+      background_color: '#0a0f1a',
+      surface_color: '#141c2e',
+      text_color: '#e8edf5',
+      accent_primary: '#00d4aa',
+      accent_secondary: '#6366f1'
+    };
 
-      if (mobileBtn && mobileMenu) {
-        // 點擊三條線按鈕切換顯示/隱藏
-        mobileBtn.addEventListener('click', (e) => {
-          e.stopPropagation();
-          mobileMenu.classList.toggle('hidden');
-        });
-
-        // 點擊選單內的任一連結後，自動關閉選單
-        const mobileLinks = mobileMenu.querySelectorAll('a');
-        mobileLinks.forEach(link => {
-          link.addEventListener('click', () => {
-            mobileMenu.classList.add('hidden');
-          });
-        });
-
-        // 點擊頁面其他地方時關閉選單
-        document.addEventListener('click', (e) => {
-          if (!mobileMenu.contains(e.target) && !mobileBtn.contains(e.target)) {
-            mobileMenu.classList.add('hidden');
+    // Initialize Element SDK
+    if (window.elementSdk) {
+      window.elementSdk.init({
+        defaultConfig,
+        onConfigChange: async (config) => {
+          const heroName = document.getElementById('hero-name');
+          if (heroName) {
+            const nameParts = (config.name || defaultConfig.name).split(' ');
+            const chineseName = nameParts[0] || '';
+            const englishName = nameParts.slice(1).join(' ') || '';
+            heroName.innerHTML = `<span class="text-[#e8edf5]">${chineseName}</span><span class="gradient-text ml-2">${englishName}</span>`;
           }
-        });
-      }
+
+          const heroTitle = document.getElementById('hero-title');
+          if (heroTitle) heroTitle.textContent = config.title || defaultConfig.title;
+
+          const summaryText = document.getElementById('summary-text');
+          if (summaryText) {
+            const summary = config.summary_text || defaultConfig.summary_text;
+            summaryText.innerHTML = summary.replace(
+              /(嵌入式韌體 \+ 系統整合 \+ 量產導向測試流程)/,
+              '<span class="text-[#00d4aa] font-medium">$1</span>'
+            );
+          }
+
+          const bgColor = config.background_color || defaultConfig.background_color;
+          const surfaceColor = config.surface_color || defaultConfig.surface_color;
+          const textColor = config.text_color || defaultConfig.text_color;
+          const accentPrimary = config.accent_primary || defaultConfig.accent_primary;
+          const accentSecondary = config.accent_secondary || defaultConfig.accent_secondary;
+
+          document.documentElement.style.setProperty('--bg-primary', bgColor);
+          document.documentElement.style.setProperty('--surface-color', surfaceColor);
+          document.documentElement.style.setProperty('--text-color', textColor);
+          document.documentElement.style.setProperty('--accent-primary', accentPrimary);
+          document.documentElement.style.setProperty('--accent-secondary', accentSecondary);
+        },
+        mapToCapabilities: (config) => ({
+          recolorables: [
+            { get: () => config.background_color || defaultConfig.background_color, set: (value) => window.elementSdk.setConfig({ background_color: value }) },
+            { get: () => config.surface_color || defaultConfig.surface_color, set: (value) => window.elementSdk.setConfig({ surface_color: value }) },
+            { get: () => config.text_color || defaultConfig.text_color, set: (value) => window.elementSdk.setConfig({ text_color: value }) },
+            { get: () => config.accent_primary || defaultConfig.accent_primary, set: (value) => window.elementSdk.setConfig({ accent_primary: value }) },
+            { get: () => config.accent_secondary || defaultConfig.accent_secondary, set: (value) => window.elementSdk.setConfig({ accent_secondary: value }) }
+          ],
+          borderables: [],
+          fontEditable: undefined,
+          fontSizeable: undefined
+        }),
+        mapToEditPanelValues: (config) => new Map([
+          ['name', config.name || defaultConfig.name],
+          ['title', config.title || defaultConfig.title],
+          ['summary_text', config.summary_text || defaultConfig.summary_text]
+        ])
+      });
+    }
+
+    
+ // Navigation functionality
+const scrollContainer = document.querySelector('.scroll-container');
+const navButtons = document.querySelectorAll('[data-section]');
+const navItems = document.querySelectorAll('.nav-item');
+const navIndicator = document.getElementById('nav-indicator');
+
+function updateNavIndicator(sectionId) {
+  navItems.forEach(item => {
+    item.classList.toggle(
+      'active',
+      item.dataset.section === sectionId
+    );
+  });
+
+  const activeItem = document.querySelector(
+    `#nav-container [data-section="${sectionId}"]`
+  );
+
+  if (activeItem && navIndicator) {
+    navIndicator.style.width = `${activeItem.offsetWidth}px`;
+    navIndicator.style.left = `${activeItem.offsetLeft}px`;
+  }
+}
+
+navButtons.forEach(btn => {
+  btn.addEventListener('click', () => {
+    const sectionId = btn.dataset.section;
+    const section = document.getElementById(sectionId);
+
+    if (!section || !scrollContainer) return;
+
+    // 計算目標區域在捲動容器內的位置
+    const containerRect = scrollContainer.getBoundingClientRect();
+    const sectionRect = section.getBoundingClientRect();
+
+    const targetTop =
+      scrollContainer.scrollTop +
+      sectionRect.top -
+      containerRect.top -
+      85;
+
+    scrollContainer.scrollTo({
+      top: Math.max(0, targetTop),
+      behavior: 'smooth'
     });
+
+    updateNavIndicator(sectionId);
+
+    // 手機版點擊後關閉選單
+    const mobileMenu = document.getElementById('mobile-menu');
+
+    if (mobileMenu) {
+      mobileMenu.classList.add('hidden');
+    }
+  });
+});
+
+// 初始化導覽列底線位置
+window.addEventListener('load', () => {
+  updateNavIndicator('about');
+});
+
+// 視窗大小改變時，重新計算底線位置
+window.addEventListener('resize', () => {
+  const activeItem = document.querySelector(
+    '#nav-container .nav-item.active'
+  );
+
+  if (activeItem) {
+    updateNavIndicator(activeItem.dataset.section);
+  }
+});
+
+
+    // Mobile menu toggle
+    // Mobile menu toggle & Auto-close on link click
+    const mobileBtn = document.getElementById('mobile-menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+    
+    if (mobileBtn && mobileMenu) {
+      mobileBtn.addEventListener('click', () => {
+        mobileMenu.classList.toggle('hidden');
+      });
+
+      // 點擊手機選單內的任一連結後自動關閉選單
+      mobileMenu.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', () => {
+          mobileMenu.classList.add('hidden');
+        });
+      });
+    }
+
+    // Intersection Observer: 進視窗 → 加入動畫 + reveal-card 啟動滑出/掃描
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('section-enter');
+          if (entry.target.classList.contains('reveal-card')) {
+            entry.target.classList.add('is-visible');
+          }
+        }
+      });
+    }, { threshold: 0.18 });
+
+    document.querySelectorAll('.card-glow').forEach(card => observer.observe(card));
+
+    // ===== Lightbox logic (Poster click -> fullscreen) =====
+    (function () {
+      const lb = document.getElementById('lightbox');
+      const lbImg = document.getElementById('lightbox-img');
+      const lbClose = document.getElementById('lightbox-close');
+      if (!lb || !lbImg || !lbClose) return;
+
+      function openLightbox(src, alt) {
+        lbImg.src = src;
+        lbImg.alt = alt || 'Preview';
+        lb.classList.add('show');
+        lb.setAttribute('aria-hidden', 'false');
+        document.body.style.overflow = 'hidden';
+      }
+
+      function closeLightbox() {
+        lb.classList.remove('show');
+        lb.setAttribute('aria-hidden', 'true');
+        lbImg.src = '';
+        lbImg.alt = '';
+        document.body.style.overflow = '';
+      }
+
+      document.addEventListener('click', (e) => {
+        const target = e.target.closest('[data-lightbox-src]');
+        if (!target) return;
+
+        const src = target.getAttribute('data-lightbox-src');
+        const alt = target.getAttribute('data-lightbox-alt') || '';
+        if (src) openLightbox(src, alt);
+      });
+
+      lb.addEventListener('click', (e) => {
+        if (e.target === lb) closeLightbox();
+      });
+
+      lbClose.addEventListener('click', closeLightbox);
+
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && lb.classList.contains('show')) closeLightbox();
+      });
+    })();
   </script>
 </body>
 </html>
