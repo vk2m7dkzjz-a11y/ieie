@@ -460,23 +460,15 @@ html {
             <span class="code-font text-sm text-[#00d4aa]" id="nav-name">WU CHIA CHEN</span>
           </div>      
 
-          <div class="hidden md:flex items-center gap-8 relative" id="nav-container">
-          
-<a href="#about" class="nav-item text-sm text-[#e8edf5]/70 hover:text-[#e8edf5] active">關於我</a>
-<a href="#skills" class="nav-item text-sm text-[#e8edf5]/70 hover:text-[#e8edf5]">技能</a>
-<a href="#experience" class="nav-item text-sm text-[#e8edf5]/70 hover:text-[#e8edf5]">經歷</a>
-<a href="#projects" class="nav-item text-sm text-[#e8edf5]/70 hover:text-[#e8edf5]">專案</a>
-<a href="#education" class="nav-item text-sm text-[#e8edf5]/70 hover:text-[#e8edf5]">學歷</a>
-<a href="#awards" class="nav-item text-sm text-[#e8edf5]/70 hover:text-[#e8edf5]">榮譽</a>
+ <div class="hidden md:flex items-center gap-8">
+            <button class="nav-item text-sm text-[#e8edf5]/70 hover:text-[#e8edf5] active" data-section="about">關於我</button>
+            <button class="nav-item text-sm text-[#e8edf5]/70 hover:text-[#e8edf5]" data-section="skills">技能</button>
+            <button class="nav-item text-sm text-[#e8edf5]/70 hover:text-[#e8edf5]" data-section="experience">經歷</button>
+            <button class="nav-item text-sm text-[#e8edf5]/70 hover:text-[#e8edf5]" data-section="projects">專案</button>
+            <button class="nav-item text-sm text-[#e8edf5]/70 hover:text-[#e8edf5]" data-section="education">學歷</button>
+            <button class="nav-item text-sm text-[#e8edf5]/70 hover:text-[#e8edf5]" data-section="awards">榮譽</button>
+          </div>
 
-  
-         <!-- 動態移動的綠色底線 -->
-          <div id="nav-indicator" class="absolute bottom-[-4px] h-[2px] bg-[#00d4aa] transition-all duration-300 ease-in-out"></div>
-          </div>    
-          
-
-
-  
           <div class="md:hidden">
             <button id="mobile-menu-btn" class="text-[#e8edf5] p-2" aria-label="Open menu">
               <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -486,15 +478,15 @@ html {
           </div>
         </div>
 
-        <!-- Mobile Menu -->
-        <!-- Mobile Menu -->
+       
+       <!-- Mobile Menu -->
         <div id="mobile-menu" class="hidden md:hidden mt-4 pb-4 space-y-2">
-          <a href="#about" class="mobile-link block w-full text-left py-2 text-sm text-[#e8edf5]/70 hover:text-[#e8edf5]">關於我</a>
-          <a href="#skills" class="mobile-link block w-full text-left py-2 text-sm text-[#e8edf5]/70 hover:text-[#e8edf5]">技能</a>
-          <a href="#experience" class="mobile-link block w-full text-left py-2 text-sm text-[#e8edf5]/70 hover:text-[#e8edf5]">經歷</a>
-          <a href="#projects" class="mobile-link block w-full text-left py-2 text-sm text-[#e8edf5]/70 hover:text-[#e8edf5]">專案</a>
-          <a href="#education" class="mobile-link block w-full text-left py-2 text-sm text-[#e8edf5]/70 hover:text-[#e8edf5]">學歷</a>
-          <a href="#awards" class="mobile-link block w-full text-left py-2 text-sm text-[#e8edf5]/70 hover:text-[#e8edf5]">榮譽</a>
+          <button class="block w-full text-left py-2 text-sm text-[#e8edf5]/70 hover:text-[#e8edf5]" data-section="about">關於我</button>
+          <button class="block w-full text-left py-2 text-sm text-[#e8edf5]/70 hover:text-[#e8edf5]" data-section="skills">技能</button>
+          <button class="block w-full text-left py-2 text-sm text-[#e8edf5]/70 hover:text-[#e8edf5]" data-section="experience">經歷</button>
+          <button class="block w-full text-left py-2 text-sm text-[#e8edf5]/70 hover:text-[#e8edf5]" data-section="projects">專案</button>
+          <button class="block w-full text-left py-2 text-sm text-[#e8edf5]/70 hover:text-[#e8edf5]" data-section="education">學歷</button>
+          <button class="block w-full text-left py-2 text-sm text-[#e8edf5]/70 hover:text-[#e8edf5]" data-section="awards">榮譽</button>
         </div>
       </div>
     </nav>
