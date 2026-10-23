@@ -478,7 +478,7 @@ html {
 
   
           <div class="md:hidden">
-            <button id="mobile-menu-btn" class="text-[#e8edf5] p-2" aria-label="Open menu">
+            <button id="" class="text-[#e8edf5] p-2" aria-label="Open menu">
               <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
               </svg>
@@ -1348,23 +1348,27 @@ window.addEventListener('resize', () => {
 });
 
 
+    
     // Mobile menu toggle
-    // Mobile menu toggle & Auto-close on link click
     const mobileBtn = document.getElementById('mobile-menu-btn');
     const mobileMenu = document.getElementById('mobile-menu');
-    
+
     if (mobileBtn && mobileMenu) {
+      mobileBtn.setAttribute('aria-expanded', 'false');
+
       mobileBtn.addEventListener('click', () => {
-        mobileMenu.classList.toggle('hidden');
+        const isOpen = mobileMenu.classList.toggle('hidden') === false;
+        mobileBtn.setAttribute('aria-expanded', String(isOpen));
       });
 
-      // 點擊手機選單內的任一連結後自動關閉選單
       mobileMenu.querySelectorAll('a').forEach(link => {
         link.addEventListener('click', () => {
           mobileMenu.classList.add('hidden');
+          mobileBtn.setAttribute('aria-expanded', 'false');
         });
       });
     }
+
 
     // Intersection Observer: 進視窗 → 加入動畫 + reveal-card 啟動滑出/掃描
     const observer = new IntersectionObserver((entries) => {
