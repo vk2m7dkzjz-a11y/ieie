@@ -1039,39 +1039,56 @@ html {
 </div>
 
           
-<!-- Power Meter 技術標籤 -->
-<div class="flex items-center gap-2 mb-3 flex-wrap">
-  <span class="px-2 py-1 rounded text-xs bg-[#00d4aa]/10 text-[#00d4aa]">Hardware</span>
-  <span class="px-2 py-1 rounded text-xs bg-[#6366f1]/10 text-[#6366f1]">PCB Layout</span>
-  <span class="px-2 py-1 rounded text-xs bg-[#a855f7]/10 text-[#a855f7]">MCU</span>
-  <span class="px-2 py-1 rounded text-xs bg-[#f59e0b]/10 text-[#f59e0b]">Modbus</span>
+<!-- Project：Power Meter 三相電力量測系統 -->
+<div class="card-glow rounded-2xl overflow-hidden section-enter stagger-1">
 
-  <!-- 新增：Web 監控技術標籤 -->
-  <span class="px-2 py-1 rounded text-xs bg-[#38bdf8]/10 text-[#38bdf8]">HTTP / Web</span>
+  <!-- Power Meter 影片展示區 -->
+  <div class="relative w-full overflow-hidden" style="aspect-ratio: 16 / 9;">
+
+    <!-- 修改：Power Meter 實際量測監控影片 -->
+    <video
+      src="vido/powermeter.mp4"
+      autoplay
+      loop
+      muted
+      playsinline
+      preload="auto"
+      class="relative z-10 w-full h-full object-contain"
+    ></video>
+
+    <div class="absolute inset-0 bg-gradient-to-br from-[#00d4aa]/15 to-[#6366f1]/15 pointer-events-none"></div>
+  </div>
+
+  <div class="p-6">
+
+    <!-- 修改：Power Meter 技術標籤 -->
+    <div class="flex items-center gap-2 mb-3 flex-wrap">
+      <span class="px-2 py-1 rounded text-xs bg-[#00d4aa]/10 text-[#00d4aa]">Hardware</span>
+      <span class="px-2 py-1 rounded text-xs bg-[#6366f1]/10 text-[#6366f1]">PCB Layout</span>
+      <span class="px-2 py-1 rounded text-xs bg-[#a855f7]/10 text-[#a855f7]">MCU</span>
+      <span class="px-2 py-1 rounded text-xs bg-[#f59e0b]/10 text-[#f59e0b]">Modbus</span>
+      <span class="px-2 py-1 rounded text-xs bg-[#38bdf8]/10 text-[#38bdf8]">HTTP / Web</span>
+    </div>
+
+    <!-- 修改：專案標題與簡介 -->
+    <h3 class="text-lg font-bold mb-2">
+      Power Meter 三相電力量測系統開發
+    </h3>
+
+    <p class="text-sm text-[#e8edf5]/60 mb-4">
+      硬體電路設計 × MCU 韌體開發 × Modbus 通訊 × Web 監控
+    </p>
+
+    <!-- 修改：技術亮點列表 -->
+    <ul class="text-xs text-[#e8edf5]/50 space-y-1">
+      <li>• 負責三相電力量測硬體電路設計與 PCB Layout，完成量測模組開發</li>
+      <li>• 開發 MCU 韌體，透過 SPI 讀取量測資料，並整合 UART / Modbus 通訊</li>
+      <li>• 運用 AI 輔助建立 HTTP Web 監控介面，整合三相電壓、電流、頻率及功率數據顯示</li>
+    </ul>
+
+  </div>
 </div>
 
-<!-- 專案標題與簡介 -->
-<h3 class="text-lg font-bold mb-2">
-  Power Meter 三相電力量測系統開發
-</h3>
-
-<!-- 修改：加入 Web 監控 -->
-<p class="text-sm text-[#e8edf5]/60 mb-4">
-  硬體設計 × MCU 韌體 × Modbus 通訊 × Web 監控
-</p>
-
-<!-- 技術亮點列表 -->
-<ul class="text-xs text-[#e8edf5]/50 space-y-1">
-  <li>• 負責三相電力量測硬體電路設計與 PCB Layout，完成量測模組開發</li>
-
-  <li>• 開發 MCU 韌體，透過 SPI 讀取電力量測資料，並整合 UART / Modbus 通訊</li>
-
-  <!-- 修改：說明 AI 輔助 Web 開發 -->
-  <li>• 運用 AI 輔助建立 HTTP Web 監控介面，整合三相電壓、電流、頻率及功率數據顯示</li>
-</ul>
-
-</div>
-</div>
 
            <!-- Project: 基於 CUDA 加速之 OpenCV GPU 夜視影像融合系統 -->
 
